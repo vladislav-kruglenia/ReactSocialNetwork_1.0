@@ -2,7 +2,7 @@ import React from 'react';
 import s from "./ProfileInfo.module.css"
 import Preloader from "../../common/Preloader/Preloader";
 import Hardi from "./../../../img/User.jpg"
-import ProfileStatus from "./ProfileStatus/ProfileStatus";
+import ProfileStatusWidthHooks from "./ProfileStatus/ProfileStatusWidthHooks";
 
 const ProfileInfo = (props) => {
     if(!props.profile){
@@ -14,7 +14,7 @@ const ProfileInfo = (props) => {
                 {!props.profile.photos.small
                     ?<img src={Hardi} alt="" className={s.logo}/>
                     :<img src={props.profile.photos.large} alt=""/>}
-                 <ProfileStatus
+                 <ProfileStatusWidthHooks
                      status={props.status}
                      updateStatus={props.updateStatus}
                  />
