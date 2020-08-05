@@ -6,7 +6,7 @@ let startState = {
         {id: 1, message: "This my first post", likeCounts: '26'},
         {id: 2, message: "This my second post", likeCounts: '27'}
     ],
-
+}
 
 test('new post should be added', () => {
     //1. test data
@@ -30,6 +30,8 @@ test('message of new post should be correct', () => {
     // 3. expectation
     expect(newState.posts[2].message).toBe("89 level")
 });
+
+
 
 test('delete post should be correct', () => {
     //1. test data
