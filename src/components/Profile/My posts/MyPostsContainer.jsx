@@ -7,17 +7,16 @@ let mapStateToProps = (state) =>{
     return{
         profilePage: state.profilePage
     }
-}
+};
 
 let mapDispatchToProps = (dispatch) =>{
     return{
         addPostCollback: (text) => {
             dispatch(actionCreator.addPost(text))
-            let a = 0
         }
     }
-}
+};
 
-const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
+const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts);
 
 export default MyPostsContainer
