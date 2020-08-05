@@ -13,6 +13,7 @@ let mapDispatchToProps = (dispatch) =>{
     return{
         addPostCollback: (text) => {
             dispatch(actionCreator.addPost(text))
+            let a = 0
         }
     }
 }
