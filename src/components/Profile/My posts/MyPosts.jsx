@@ -28,7 +28,7 @@ let AddPostForm = (props) => {
 AddPostForm = reduxForm({form: "addNewPost"})(AddPostForm)
 
 
-const MyPosts = (props) => {
+const MyPosts = React.memo(props => {
     let addNewPost = (formData) =>{
         console.log(formData)
         props.addPostCollback(formData.newPost)
@@ -45,6 +45,6 @@ const MyPosts = (props) => {
             </div>
         </div>
     )
-}
+})
 
 export default MyPosts
