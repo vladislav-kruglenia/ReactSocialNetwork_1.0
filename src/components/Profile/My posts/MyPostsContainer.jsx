@@ -13,9 +13,9 @@ let mapDispatchToProps = (dispatch) =>{
     return{
         addPostCollback: (text) => {
             dispatch(actionCreator.addPost(text))
-            let a = 1
         }
     }
+
 };
 
 const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts);
