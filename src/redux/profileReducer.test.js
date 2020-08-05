@@ -6,7 +6,7 @@ let startState = {
         {id: 1, message: "This my first post", likeCounts: '26'},
         {id: 2, message: "This my second post", likeCounts: '27'}
     ],
-}
+
 
 test('new post should be added', () => {
     //1. test data
