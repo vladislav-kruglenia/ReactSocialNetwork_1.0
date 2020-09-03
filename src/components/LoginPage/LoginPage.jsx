@@ -1,6 +1,6 @@
 import React from 'react'
 import {Field, reduxForm} from "redux-form";
-import {Input} from "../common/FormsControls/FormsControls";
+import {createField, Input} from "../common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
 import {loginThunkCreator} from "../../redux/authReducer";
@@ -8,30 +8,14 @@ import {Redirect} from "react-router-dom";
 import style from "./LoginPage.module.css"
 
 
-let LoginForm = (props) => {
-    return <form onSubmit={props.handleSubmit}>
-        <div>
-            <Field
-                placeholder={"Email"}
-                component={Input}
-                name={"email"}
-                validate={[required]}
-            />
-        </div>
-        <div>
-            <Field
-                placeholder={"Password"}
-                component={Input}
-                name={"password"}
-                validate={[required]}
-            />
-        </div>
-        <div>
-            <Field type={"checkbox"} component={"input"} name={"rememberMe"}/>remember me
-        </div>
+let LoginForm = ({handleSubmit, error}) => {
+    return <form onSubmit={handleSubmit}>
+        {createField("Email", Input, "email", [required])}
+        {createField("Password", Input, "password", [required],{type: "password"})}
+        {createField(null,"input","rememberMe",[],{type: "checkbox"},"remember me")}
         {
-            props.error && <div className={style.formSummaryError}>
-                {props.error}
+            error && <div className={style.formSummaryError}>
+                {error}
             </div>
         }
         <div>
@@ -48,15 +32,15 @@ const LoginPage = (props) => {
         props.loginThunkCreator(formData.email, formData.password, formData.rememberMe)
     }
 
-    if(props.isAuth) return <Redirect to={'/profile'}/>
+    if (props.isAuth) return <Redirect to={'/profile'}/>
     return <div>
         <h1>LoginPage</h1>
         <LoginForm onSubmit={onSubmit}/>
     </div>
 }
 
-const mapStateToProps = (state) =>{
-    return{
+const mapStateToProps = (state) => {
+    return {
         isAuth: state.auth.isAuth
     }
 }

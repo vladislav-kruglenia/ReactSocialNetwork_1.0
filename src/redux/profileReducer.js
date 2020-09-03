@@ -1,10 +1,10 @@
 import {profileAPI, usersAPI} from "../api/api";
 
-const ADD_POST = "ADD_POST"
+const ADD_POST = "PROFILE_ADD_POST"
 //const UPDATE_NEW_POST_TEXT = "UPDATE_NEW_POST_TEXT"
-const SET_USER_PROFILE = "SET_USER_PROFILE"
-const SET_STATUS = "SET_STATUS"
-const DELETE_POST = "DELETE_POST"
+const SET_USER_PROFILE = "PROFILE_SET_USER_PROFILE"
+const SET_STATUS = "PROFILE_SET_STATUS"
+const DELETE_POST = "PROFILE_DELETE_POST"
 
 
 let startState = {
@@ -31,7 +31,7 @@ let profileReducer = (state = startState, action) => {
         case DELETE_POST: {
             return {
                 ...state,
-                posts: [...state.posts.filter(p => p.id != action.id)]
+                posts: [...state.posts.filter(p => p.id !== action.id)]
             }
         }
         case SET_USER_PROFILE: {
@@ -52,7 +52,7 @@ let profileReducer = (state = startState, action) => {
             return state
     }
 }
-
+//actionCreators
 export let actionCreator = {
     addPost(text) {
         return {
@@ -60,13 +60,14 @@ export let actionCreator = {
             newPostText: text
         }
     },
-    deletePost(id){
+    deletePost(id) {
         return {
             type: DELETE_POST,
             id
         }
     }
 }
+
 export let setUserProfile = (profile) => {
     return {
         type: SET_USER_PROFILE,
@@ -80,34 +81,31 @@ export let setStatus = (status) => {
         status
     }
 }
+//actionCreators
 
+//thunkCreators
 export let getProfileInfoThunkCreator = (numberID) => {
-    return (dispatch) => {
-        usersAPI.getProfile(numberID)
-            .then(response => {
-                dispatch(setUserProfile(response))
-            })
+    return async (dispatch) => {
+        let response = await usersAPI.getProfile(numberID)
+        dispatch(setUserProfile(response))
     }
 }
 
 export let getStatusThunkCreator = (numberID) => {
-    return (dispatch) => {
-        profileAPI.getStatus(numberID)
-            .then(response => {
-                dispatch(setStatus(response.data))
-            })
+    return async (dispatch) => {
+        let response = await profileAPI.getStatus(numberID)
+        dispatch(setStatus(response.data))
     }
 }
 
 export let updateStatusThunkCreator = (status) => {
-    return (dispatch) => {
-        profileAPI.updateStatus(status)
-            .then(response => {
-                if (response.data.resultCode === 0) {
-                    dispatch(setStatus(status))
-                }
-            })
+    return async (dispatch) => {
+        let response = await profileAPI.updateStatus(status)
+        if (response.data.resultCode === 0) {
+            dispatch(setStatus(status))
+        }
     }
 }
+
 
 export default profileReducer

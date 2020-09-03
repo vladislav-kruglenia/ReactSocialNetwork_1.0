@@ -1,7 +1,7 @@
 import {authAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
 
-const SER_USER_DATA = "SER_USER_DATA"
+const SET_USER_DATA = "AUTH_SET_USER_DATA"
 
 
 let startState = {
@@ -13,7 +13,7 @@ let startState = {
 
 let authReducer = (state = startState, action) => {
     switch (action.type) {
-        case SER_USER_DATA: {
+        case SET_USER_DATA: {
             return {
                 ...state,
                 ...action.data,
@@ -28,42 +28,36 @@ let authReducer = (state = startState, action) => {
 //actionCreators
 export let setUserData = (id, email, login, isAuth) => {
     return {
-        type: SER_USER_DATA,
+        type: SET_USER_DATA,
         data: {id, email, login, isAuth}
     }
 }
 //actionCreators
 
 //thunkCreators
-export let authMeThunkCreator = () => (dispatch) => {
-    return authAPI.me()
-        .then(response => {
-            if (response.resultCode === 0) {
-                let {id, email, login} = response.data
-                dispatch(setUserData(id, email, login, true))
-            }
-        })
+export let authMeThunkCreator = () => async (dispatch) => {
+    let response = await authAPI.me()
+    if (response.resultCode === 0) {
+        let {id, email, login} = response.data
+        dispatch(setUserData(id, email, login, true))
+    }
 }
 
 
-export let loginThunkCreator = (login, password, rememberMe = false) => (dispatch) => {
-    authAPI.login(login, password, rememberMe)
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(authMeThunkCreator())
-            } else {
-                let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error"
-                dispatch(stopSubmit("login", {_error: message}))
-            }
-        })
+export let loginThunkCreator = (login, password, rememberMe = false) => async (dispatch) => {
+    let response = await authAPI.login(login, password, rememberMe)
+    if (response.data.resultCode === 0) {
+        dispatch(authMeThunkCreator())
+    } else {
+        let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error"
+        dispatch(stopSubmit("login", {_error: message}))
+    }
 }
-export let logoutThunkCreator = () => (dispatch) => {
-    authAPI.logout()
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(setUserData(null, null, null, false))
-            }
-        })
+export let logoutThunkCreator = () => async (dispatch) => {
+    let response = await authAPI.logout()
+    if (response.data.resultCode === 0) {
+        dispatch(setUserData(null, null, null, false))
+    }
 }
 //thunkCreators
 
