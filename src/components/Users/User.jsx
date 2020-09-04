@@ -2,10 +2,9 @@ import React from "react";
 import s from "./Users.module.css"
 import userPhoto from '../../img/User.jpg'
 import {NavLink} from "react-router-dom";
-import Paginator from "../common/Paginator/Paginator";
 
 
-let UsersUI = ({user,...props}) => {
+let User = ({user,...props}) => {
     let u = user
     return (
         <>
@@ -36,4 +35,4 @@ let UsersUI = ({user,...props}) => {
     )
 }
 
-export default UsersUI
+export default User

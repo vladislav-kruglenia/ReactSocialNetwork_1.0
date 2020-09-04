@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./FormsControls.module.css"
-import {required} from "../../../utils/validators/validators";
 import {Field} from "redux-form";
 
 
