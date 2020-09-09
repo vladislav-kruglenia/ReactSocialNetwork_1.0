@@ -2,7 +2,7 @@
   "name": "my-first-project",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://vladislav-kruglenia.github.io/ReactSocialNetwork_1.0/",
+  "homepage": "https://vladislav-kruglenia.github.io/demo-react-app",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
