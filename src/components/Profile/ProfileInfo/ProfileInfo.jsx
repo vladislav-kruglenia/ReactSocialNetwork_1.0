@@ -5,19 +5,23 @@ import Hardi from "./../../../img/User.jpg"
 import ProfileStatusWidthHooks from "./ProfileStatus/ProfileStatusWidthHooks";
 
 const ProfileInfo = (props) => {
-    if(!props.profile){
+    if (!props.profile) {
         return <Preloader/>
+    }
+    let onMainPhotoSelected = (e) =>{
+        if(e.target.files.length){
+            props.savePhoto(e.target.files[0])
+        }
     }
     return (
         <div>
             <div className={s.descriptionBlock}>
-                {!props.profile.photos.small
-                    ?<img src={Hardi} alt="" className={s.logo}/>
-                    :<img src={props.profile.photos.large} alt=""/>}
-                 <ProfileStatusWidthHooks
-                     status={props.status}
-                     updateStatus={props.updateStatus}
-                 />
+                <img src={props.profile.photos.large || Hardi} alt="" className={s.logo}/>
+                    {props.isOwner && <input type={'file'} onChange={onMainPhotoSelected}/>}
+                <ProfileStatusWidthHooks
+                    status={props.status}
+                    updateStatus={props.updateStatus}
+                />
             </div>
         </div>
     )
