@@ -20,8 +20,8 @@ let profileReducer = (state = startState, action) => {
     switch (action.type) {
         case ADD_POST: {
             let newPost = {
-                id: 4,
-                message: action.newPostText,
+                id: action.postData.id,
+                message: action.postData.newPost,
                 likeCounts: 28
             }
             return {
@@ -64,10 +64,10 @@ let profileReducer = (state = startState, action) => {
 }
 //actionCreators
 export let actionCreator = {
-    addPost(text) {
+    addPost(postData) {
         return {
             type: ADD_POST,
-            newPostText: text
+            postData
         }
     },
     deletePost(id) {

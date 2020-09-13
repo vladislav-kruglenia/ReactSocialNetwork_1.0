@@ -5,7 +5,6 @@ import Hardi from "./../../../img/User.jpg"
 import ProfileStatusWidthHooks from "./ProfileStatus/ProfileStatusWidthHooks";
 import Contact from "./Contact/Contact";
 import ProfileDataForm from "./ProfileData/ProfileDataForm";
-import {getProfileInfoThunkCreator} from "../../../redux/profileReducer";
 
 const ProfileInfo = (props) => {
     if (!props.profile) {
@@ -57,7 +56,7 @@ const ProfileData = (props) => {
             <div>
                 <b>My contacts: </b><br/>
                 {Object.keys(props.profile.contacts).map(key => {
-                    return <Contact contactName={key} contactValue={props.profile.contacts[key]}/>
+                    return <Contact key={key} contactName={key} contactValue={props.profile.contacts[key]}/>
                 })}
             </div>
         </>

@@ -13,7 +13,7 @@ let LoginForm = ({handleSubmit, error, captchaURL}) => {
         {createField("Email", Input, "email", [required])}
         {createField("Password", Input, "password", [required],{type: "password"})}
         {createField(null,"input","rememberMe",[],{type: "checkbox"},"remember me")}
-        {captchaURL && <img src={captchaURL}/>}
+        {captchaURL && <img src={captchaURL} alt={''}/>}
         {captchaURL && createField("", Input, "captchaURL", [required])}
         {
             error && <div className={style.formSummaryError}>

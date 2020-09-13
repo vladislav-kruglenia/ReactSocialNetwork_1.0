@@ -30,11 +30,12 @@ AddPostForm = reduxForm({form: "addNewPost"})(AddPostForm)
 
 const MyPosts = React.memo(props => {
     let addNewPost = (formData) =>{
+        formData = {...formData, id:props.profilePage.posts.length + 1}
         console.log(formData)
-        props.addPostCollback(formData.newPost)
+        props.addPostCollback(formData)
     }
 
-    let postsElements = props.profilePage.posts.map(p => <Post message={p.message} likeCounts={p.likeCounts}/>)
+    let postsElements = props.profilePage.posts.map(p => <Post key={p.id} message={p.message} likeCounts={p.likeCounts}/>)
 
     return (
         <div className={s.postsBlock}>
