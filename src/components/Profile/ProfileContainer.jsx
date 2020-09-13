@@ -2,7 +2,7 @@ import React from 'react';
 import Profile from "./Profile";
 import {
     getProfileInfoThunkCreator,
-    getStatusThunkCreator, savePhotoThunkCreator,
+    getStatusThunkCreator, savePhotoThunkCreator, saveProfileDataThunkCreator,
     updateStatusThunkCreator
 } from "../../redux/profileReducer";
 import {connect} from "react-redux";
@@ -40,6 +40,7 @@ class ProfileContainer extends React.Component {
                      status={this.props.status}
                      updateStatus={this.props.updateUserStatus}
                      savePhoto={this.props.savePhoto}
+                     saveProfileData={this.props.saveProfileData}
             />
         )
     }
@@ -58,7 +59,8 @@ let dispatchObject ={
     getProfileInfo: getProfileInfoThunkCreator,
     getUserStatus: getStatusThunkCreator,
     updateUserStatus: updateStatusThunkCreator,
-    savePhoto: savePhotoThunkCreator
+    savePhoto: savePhotoThunkCreator,
+    saveProfileData: saveProfileDataThunkCreator
 }
 
 export default compose(

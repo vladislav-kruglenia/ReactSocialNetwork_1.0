@@ -25,7 +25,7 @@ const ProfileStatusWidthHooks = (props) => {
         <div>
             {!editMode &&
                 <div>
-                    <span onDoubleClick={activateEditMode}>{props.status || "Нет статуса, сори"}</span>
+                    <b>Status: </b><span onDoubleClick={activateEditMode}>{props.status || "Нет статуса, сори"}</span>
                 </div>
             }
             {editMode &&

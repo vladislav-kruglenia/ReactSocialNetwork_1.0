@@ -1,4 +1,5 @@
 import {profileAPI, usersAPI} from "../api/api";
+import {stopSubmit} from "redux-form";
 
 const ADD_POST = "PROFILE_ADD_POST"
 //const UPDATE_NEW_POST_TEXT = "UPDATE_NEW_POST_TEXT"
@@ -126,11 +127,21 @@ export let updateStatusThunkCreator = (status) => {
 
 export let savePhotoThunkCreator = (file) => async (dispatch) => {
     let response = await profileAPI.savePhoto(file)
-    debugger
     if (response.data.resultCode === 0) {
         dispatch(savePhotoSuccess(response.data.data.photos))
     }
 }
+export let saveProfileDataThunkCreator = (profile) => async (dispatch, getState) => {
+    let userId = getState().auth.id
+    let response = await profileAPI.saveProfileData(profile)
+    if (response.data.resultCode === 0) {
+        dispatch(getProfileInfoThunkCreator(userId))
+    } else{
+        dispatch(stopSubmit("edit-profile", {_error: response.data.messages[0]} ))
+        return Promise.reject(response.data.messages[0])
+    }
+}
+
 //thunkCreators
 
 
