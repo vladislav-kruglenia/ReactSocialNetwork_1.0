@@ -1,7 +1,7 @@
 import withSuspense from "./HighOrderComponents/widthSuspenseComponent";
 import React from 'react';
 import './App.css';
-import {BrowserRouter,/*BrowserRouter*/ Route, withRouter} from "react-router-dom";
+import {BrowserRouter, Redirect,/*BrowserRouter*/ Route, Switch, withRouter} from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
@@ -26,22 +26,35 @@ class App extends React.Component {
     }
 
     render() {
-        if (!this.props.initialized) return <Preloader/>
+        if (!this.props.initialized) return <Preloader/>;
 
         return (
             <div className="app-wrapper">
                 <HeaderContainer/>
                 <Navbar/>
                 <div className="app-wrapper-content">
-                    <Route path='/dialogs'
-                           render={withSuspense(DialogsContainer)}/>
-                    <Route path='/profile/:userId?'
-                           render={withSuspense(ProfileContainer)}/>
-                    <Route path='/news' render={() => <News/>}/>
-                    <Route path='/music' render={() => <Music/>}/>
-                    <Route path='/settings' render={() => <Settings/>}/>
-                    <Route path='/users' render={() => <UsersContainer/>}/>
-                    <Route path='/login' render={() => <LoginPage/>}/>
+                    <Switch>
+                        <Route exact path='/'
+                               render={()=><Redirect to={"/profile"}/>}/>
+
+                        <Route path='/dialogs'
+                               render={withSuspense(DialogsContainer)}/>
+
+                        <Route path='/profile/:userId?'
+                               render={withSuspense(ProfileContainer)}/>
+
+                        <Route path='/news' render={() => <News/>}/>
+
+                        <Route path='/music' render={() => <Music/>}/>
+
+                        <Route path='/settings' render={() => <Settings/>}/>
+
+                        <Route path='/users' render={() => <UsersContainer/>}/>
+
+                        <Route path='/login' render={() => <LoginPage/>}/>
+
+                        <Route path='*' render={() => <div>404 NOT FOUND</div>}/>
+                    </Switch>
                 </div>
             </div>
         );
