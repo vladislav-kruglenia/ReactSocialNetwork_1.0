@@ -1,4 +1,6 @@
 import React, {useEffect, useState} from 'react';
+import s from './ProfileStatus.module.css'
+import s2 from './../../../common/Button.module.css'
 
 const ProfileStatusWidthHooks = (props) => {
     let [editMode,setEditMode] = useState(false)
@@ -22,10 +24,13 @@ const ProfileStatusWidthHooks = (props) => {
 
 
     return (
-        <div>
+        <div className={s.profileStatusContainer}>
+            <div>
+                <h2>{props.nameUser}</h2>
+            </div>
             {!editMode &&
-                <div>
-                    <b>Status: </b><span onDoubleClick={activateEditMode}>{props.status || "Нет статуса, сори"}</span>
+                <div onClick={activateEditMode} className={s.status}>
+                    {props.status || "Нет статуса, сори"}
                 </div>
             }
             {editMode &&
@@ -36,6 +41,7 @@ const ProfileStatusWidthHooks = (props) => {
                     value={status}
                     autoFocus={true}
                 />
+                <button className={s2.buttonStyle} onClick={deactivateEditMode}>Save</button>
             </div>
             }
         </div>

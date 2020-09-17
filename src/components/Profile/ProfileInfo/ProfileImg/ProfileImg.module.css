@@ -1,0 +1,47 @@
+.imgContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 230px;
+    height: 275px;
+    background-color: #ffffff;
+    padding: 15px;
+    /*border:1px solid violet;*/
+}
+.imgContainer img{
+    display: block;
+    width:200px;
+    margin-bottom: 10px;
+}
+
+/*input[type=file]*/
+.imgContainer input[type=file] {
+    cursor: pointer;
+    width: 205px;
+    height: 34px;
+    overflow: hidden;
+}
+
+.imgContainer input[type=file]:before {
+    width: 184px;
+    height: 32px;
+    font-size: 16px;
+    line-height: 32px;
+    color:#697583;
+    content: 'Сhange photo';
+    display: inline-block;
+    background: #e6ebf1;
+    border-radius: 5% 5%;
+    padding: 0 10px;
+    text-align: center;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.imgContainer input[type=file]::-webkit-file-upload-button {
+    visibility: hidden;
+}
+
+/*input[type=file]*/
+

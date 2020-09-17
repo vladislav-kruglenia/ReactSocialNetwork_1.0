@@ -1,6 +1,7 @@
 import {actionCreator} from "../../../redux/profileReducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
+import { reset} from "redux-form";
 
 // commit!!!!!!!!!!!
 let mapStateToProps = (state) =>{
@@ -13,7 +14,8 @@ let mapDispatchToProps = (dispatch) =>{
     return{
         addPostCollback: (text) => {
             dispatch(actionCreator.addPost(text))
-        }
+        },
+        resetText:(formName) => dispatch(reset(formName))
     }
 
 };

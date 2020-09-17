@@ -1,18 +1,14 @@
 .app-wrapper {
-    max-width: 1300px;
+    /*max-width: 1300px;*/
+    min-height: 100%;
     margin: 0 auto;
+    background-color: #edeef0;
 
-    display: grid;
+   /* display: grid;
     grid-template-rows: 60px 1fr;
     grid-template-columns: 2fr 10fr;
-    grid-template-areas: "h h" "n c";
+    grid-template-areas: "h h" "n c";*/
     /*grid-gap: 10px;*/
-
-}
-
-.content {
-    grid-area: c;
-    background-color: beige;
 
 }
 
@@ -22,6 +18,21 @@ a {
 
 
 .app-wrapper-content {
-    grid-area: c;
-    background-color: beige;
+    /*grid-area: c;*/
+    /*background-color: beige;*/
+    display:flex;
+    justify-content: center;
+}
+.app-wrapper-container{
+    display: flex;
+    justify-content: space-between;
+
+    /*border: 1px solid rebeccapurple;*/
+    width: 995px;
+    padding-top: 15px;
+}
+
+.app-content{
+    /*border: 1px solid goldenrod;*/
+    width: 810px;
 }

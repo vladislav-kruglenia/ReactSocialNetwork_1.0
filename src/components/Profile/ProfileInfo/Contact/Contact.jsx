@@ -1,11 +1,13 @@
 import React from 'react';
+import s from "../ProfileInfo.module.css";
 
 
 const Contact = (props) => {
     return (
-        <>
-            <i>{props.contactName}: </i>{props.contactValue}<br/>
-        </>
+        <div className={s.contact}>
+            <div>{props.contactName}: </div>
+            <div>{props.contactValue}</div>{/*<br/>*/}
+        </div>
     )
 }
 

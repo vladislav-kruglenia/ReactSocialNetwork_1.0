@@ -1,8 +1,35 @@
+.profileInfoContainer{
+    display: flex;
+    justify-content: space-between;
+    /*border: 1px solid rebeccapurple;*/
+}
 .descriptionBlock{
+    width: 500px;
+    background-color: #ffffff;
     padding: 10px;
+    /*border: 1px solid blue;*/
 }
 
-.logo{
-    width:300px;
+.contactsDataContainer{
+    padding: 15px;
+    /*border: 1px solid red;*/
 }
+
+.contact{
+    display: flex;
+    margin: 8px 0;
+    /*border: 1px solid mediumorchid;*/
+}
+.contact div:nth-child(1){
+    width: 165px;
+    font-style: italic;
+    /*border: 1px solid darkolivegreen;*/
+    /*color: #828281;*/
+}
+.contact div:nth-child(2){
+    color: #224b79;
+}
+
+
+
 

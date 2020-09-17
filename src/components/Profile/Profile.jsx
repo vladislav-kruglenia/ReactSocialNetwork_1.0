@@ -1,13 +1,15 @@
 import React from 'react';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./My posts/MyPostsContainer";
+import s from "./Profile.module.css"
 
 
 
 
 const Profile = (props) => {
+
     return (
-        <div>
+        <div className={s.profileMain}>
             <ProfileInfo
                 isOwner={props.isOwner}
                 profile={props.profile}
@@ -16,7 +18,7 @@ const Profile = (props) => {
                 savePhoto={props.savePhoto}
                 saveProfileData={props.saveProfileData}
             />
-            <MyPostsContainer store={props.store}/>
+            <MyPostsContainer/>
         </div>
     )
 }

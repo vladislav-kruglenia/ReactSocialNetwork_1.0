@@ -1,0 +1,27 @@
+.profileStatusContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px 0 20px 10px;
+    border-bottom: 1px solid #e7e8ea;
+
+    /*border:1px solid goldenrod;*/
+}
+.profileStatusContainer h2{
+    line-height: 0;
+}
+.profileStatusContainer input{
+    width: 460px;
+}
+.status{
+    width: 460px;
+    overflow: hidden;
+    /*border:1px solid brown;*/
+}
+
+.status:hover{
+    background-color: #e6eaf3;
+    cursor: pointer;
+}
+
+
