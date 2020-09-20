@@ -1,0 +1,13 @@
+.messageContainer{
+    display: flex;
+    justify-content: flex-end;
+    margin: 15px 20px;
+    /*border: 1px solid green;*/
+}
+
+.message{
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 48px 48px 0 48px;
+    background-color: #ffffff;
+}

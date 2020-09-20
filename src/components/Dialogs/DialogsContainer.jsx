@@ -3,6 +3,7 @@ import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {withAuthRedirect} from "../../HighOrderComponents/widthAuthRedirect";
 import {compose} from "redux";
+import {reset} from "redux-form";
 
 let mapStateToProps = (state) =>{
     return {
@@ -17,7 +18,8 @@ let mapDispatchToProps = (dispatch) =>{
         },
         addMessageCollBack: (text) =>{
             dispatch(actionCreator.addMessage(text))
-        }
+        },
+        resetText:(formName) => dispatch(reset(formName))
     }
 }
 

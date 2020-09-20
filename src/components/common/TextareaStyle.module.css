@@ -1,0 +1,16 @@
+.addTextForm{
+    min-height: 85px;
+    padding:15px 0 10px 15px;
+
+    background-color: #ffffff;
+}
+
+.addTextForm textarea{
+    width: 485px;
+    outline: none;
+    -moz-appearance: none;
+    border:none;
+    resize: none;
+    overflow: auto;
+    font-family:"Pump Demi Bold Let", sans-serif;
+}

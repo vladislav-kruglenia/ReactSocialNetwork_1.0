@@ -4,6 +4,7 @@ import {Field, reduxForm} from "redux-form";
 import {Textarea} from "../../common/FormsControls/FormsControls";
 import s from "./MyPosts.module.css"
 import s2 from "../../common/Button.module.css";
+import s3 from "../../common/TextareaStyle.module.css"
 
 
 //import {maxLengthCreator} from "../../../utils/validators/validators";
@@ -11,7 +12,7 @@ import s2 from "../../common/Button.module.css";
 //const maxLength10 = maxLengthCreator(10)
 
 let AddPostForm = (props) => {
-    return <form onSubmit={props.handleSubmit} className={s.addPostForm}>
+    return <form onSubmit={props.handleSubmit} className={s3.addTextForm}>
         <div>
             <Field
                 placeholder={"Post message"}
