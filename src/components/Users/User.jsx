@@ -1,37 +1,42 @@
 import React from "react";
-import s from "./Users.module.css"
 import userPhoto from '../../img/User.jpg'
 import {NavLink} from "react-router-dom";
+import s from "./Users.module.css"
+import s2 from "../common/Button.module.css";
 
 
-let User = ({user,...props}) => {
+let User = ({user, ...props}) => {
     let u = user
     return (
-        <>
-            <NavLink to={'/profile/' + u.id}>
-                <div className={s.img}><img src={
-                    u.photos.small != null ? u.photos.small : userPhoto
-                } alt={''}/></div>
-            </NavLink>
-            <div className="button">
+        <div className={s.userContainer}>
+            <div className={s.userLeftContainer}>
+                <NavLink to={'/profile/' + u.id}>
+                    <img src={
+                        u.photos.small != null ? u.photos.small : userPhoto
+                    } alt={''}/>
+                </NavLink>
+                <div className={s.userInfo}>
+                    <div className={s.userName}>{u.name}</div>
+                    <div className="status">{u.status}</div>
+                </div>
+            </div>
+            <div className={s.buttonFollowing}>
                 {u.followed
                     ? <button
+                        className={s2.buttonStyle}
                         disabled={props.followingInProgress.some(id => id === u.id)}
                         onClick={() => {
                             props.unFollowUser(u.id)
                         }}>UnFollow</button>
                     : <button
+                        className={s2.buttonStyle}
                         disabled={props.followingInProgress.some(id => id === u.id)}
                         onClick={() => {
                             props.followUser(u.id)
                         }}>Follow</button>
                 }
             </div>
-            <div className="name">{u.name}</div>
-            <div className="status">{u.status}</div>
-            <div className="country">{"u.location.country"}</div>
-            <div className="city">{"u.location.city"}</div>
-        </>
+        </div>
     )
 }
 

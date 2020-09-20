@@ -1,6 +1,6 @@
 .app-wrapper {
-    /*max-width: 1300px;*/
-    min-height: 100%;
+    width: 100%;
+    height: 100%;
     margin: 0 auto;
     background-color: #edeef0;
 
@@ -22,17 +22,19 @@ a {
     /*background-color: beige;*/
     display:flex;
     justify-content: center;
+    /*border: 1px solid rebeccapurple;*/
 }
 .app-wrapper-container{
     display: flex;
     justify-content: space-between;
 
-    /*border: 1px solid rebeccapurple;*/
+    border: 1px solid rebeccapurple;
     width: 995px;
+    min-width: 995px;
     padding-top: 15px;
 }
 
 .app-content{
-    /*border: 1px solid goldenrod;*/
     width: 810px;
+    border: 1px solid goldenrod;
 }

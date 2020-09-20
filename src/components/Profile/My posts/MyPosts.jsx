@@ -1,14 +1,14 @@
 import React from 'react';
 import Post from "./Post/Post";
 import {Field, reduxForm} from "redux-form";
-import {maxLengthCreator, required} from "../../../utils/validators/validators";
 import {Textarea} from "../../common/FormsControls/FormsControls";
 import s from "./MyPosts.module.css"
 import s2 from "../../common/Button.module.css";
-import Preloader from "../../common/Preloader/Preloader";
 
 
-const maxLength10 = maxLengthCreator(10)
+//import {maxLengthCreator} from "../../../utils/validators/validators";
+//import Preloader from "../../common/Preloader/Preloader";
+//const maxLength10 = maxLengthCreator(10)
 
 let AddPostForm = (props) => {
     return <form onSubmit={props.handleSubmit} className={s.addPostForm}>

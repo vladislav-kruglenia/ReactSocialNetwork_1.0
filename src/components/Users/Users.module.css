@@ -1,14 +1,51 @@
-.img img{
-    width: 150px;
+.usersContainer .userContainer:not(:last-child){
+    border-bottom: 2px solid #e7e8ea;
+}
+.userContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 125px;
+    margin: 0 20px;
+    /*border: 1px solid turquoise;*/
+}
+
+.userLeftContainer{
+    display: flex;
+    width: 490px;
+    height: 100px;
+    /*border: 1px solid green;*/
+}
+
+.userLeftContainer img{
+    width: 100px;
     border-radius: 50%;
 }
 
-/*.selectedPage{
-    font-weight: bold;
-    cursor: pointer!important;
+.userInfo{
+    margin-left: 20px;
+    /*border: 1px solid gold;*/
 }
-span{
-    padding: 20px 10px;
-    cursor: pointer!important;
-}*/
+
+.userName{
+    color: #2c5781;
+    font-weight: bold;
+}
+
+.buttonFollowing{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 50px;
+    /*border: 1px solid red;*/
+}
+
+.buttonFollowing button:disabled{
+    height: 25px;
+    color: #285886;
+    background-color: #dce1e5;
+}
+
+
 
