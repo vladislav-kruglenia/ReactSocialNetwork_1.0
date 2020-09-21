@@ -19,7 +19,7 @@ class ProfileContainer extends React.Component {
             if(!numberID){
                 this.props.history.push("/login")
             }
-        } //8845}
+        } //8845
         this.props.getProfileInfo(numberID)
         this.props.getUserStatus(numberID)
     }

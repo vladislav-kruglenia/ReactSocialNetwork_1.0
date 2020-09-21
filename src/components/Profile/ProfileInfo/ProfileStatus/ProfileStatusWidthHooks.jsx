@@ -3,23 +3,34 @@ import s from './ProfileStatus.module.css'
 import s2 from './../../../common/Button.module.css'
 
 const ProfileStatusWidthHooks = (props) => {
-    let [editMode,setEditMode] = useState(false)
-    let [status,setStatus] = useState(props.status)
+    let [editMode, setEditMode] = useState(false)
+    let [status, setStatus] = useState(props.status)
 
-    useEffect(()=>{
+    useEffect(() => {
         setStatus(props.status)
-    },[props.status])
+    }, [props.status]);
 
-    let activateEditMode = () =>{
+    let activateEditMode = () => {
         setEditMode(true)
-    }
-    let deactivateEditMode = () =>{
+    };
+    let deactivateEditMode = () => {
         setEditMode(false)
         props.updateStatus(status)
-    }
+    };
 
-    let onStatusChange = (e) =>{
+    let onStatusChange = (e) => {
         setStatus(e.currentTarget.value)
+    };
+
+    if(!props.isOwner){
+        return <div className={s.profileStatusContainer}>
+            <div>
+                <h2>{props.nameUser}</h2>
+            </div>
+            <div className={s.status}>
+                {props.status || "Нет статуса, сори"}
+            </div>
+        </div>
     }
 
 
@@ -29,9 +40,9 @@ const ProfileStatusWidthHooks = (props) => {
                 <h2>{props.nameUser}</h2>
             </div>
             {!editMode &&
-                <div onClick={activateEditMode} className={s.status}>
-                    {props.status || "Нет статуса, сори"}
-                </div>
+            <div onClick={activateEditMode} className={s.status}>
+                {props.status || "Нет статуса, сори"}
+            </div>
             }
             {editMode &&
             <div>

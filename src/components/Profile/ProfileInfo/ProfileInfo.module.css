@@ -23,11 +23,13 @@
 .contact div:nth-child(1){
     width: 165px;
     font-style: italic;
-    /*border: 1px solid darkolivegreen;*/
     /*color: #828281;*/
+    /*border: 1px solid darkolivegreen;*/
 }
 .contact div:nth-child(2){
+    width: 280px;
     color: #224b79;
+    /*border: 1px solid red;*/
 }
 
 

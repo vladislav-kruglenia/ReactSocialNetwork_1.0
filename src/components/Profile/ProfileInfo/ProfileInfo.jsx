@@ -19,7 +19,7 @@ const ProfileInfo = (props) => {
                 setEditMode(false)
             })
         //setEditMode(false)
-    }
+    };
     return (
         <div className={s.profileInfoContainer}>
             <ProfileImg {...props}/>
@@ -28,6 +28,7 @@ const ProfileInfo = (props) => {
                     status={props.status}
                     updateStatus={props.updateStatus}
                     nameUser={props.profile.fullName}
+                    isOwner={props.isOwner}
                 />
                 {editMode
                     ? <ProfileDataForm
@@ -37,7 +38,9 @@ const ProfileInfo = (props) => {
                         exitToEditPage={() => {
                             setEditMode(false)
                         }}/>
-                    : <ProfileData profile={props.profile} goToEditPage={() => {
+                    : <ProfileData
+                        isOwner={props.isOwner}
+                        profile={props.profile} goToEditPage={() => {
                         setEditMode(true)
                     }}/>}
             </div>
@@ -71,7 +74,8 @@ const ProfileData = (props) => {
                     return <Contact key={key} contactName={key} contactValue={props.profile.contacts[key]}/>
                 })}
             </div>
-            <button onClick={props.goToEditPage} className={s2.buttonStyle}>Edit</button>
+            {props.isOwner && <button onClick={props.goToEditPage} className={s2.buttonStyle}>Edit</button>}
+
         </div>
     )
 }
