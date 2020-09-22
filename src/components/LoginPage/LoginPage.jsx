@@ -6,13 +6,14 @@ import {connect} from "react-redux";
 import {loginThunkCreator} from "../../redux/authReducer";
 import {Redirect} from "react-router-dom";
 import style from "./LoginPage.module.css"
+import s2 from "../common/Button.module.css";
 
 
 let LoginForm = ({handleSubmit, error, captchaURL}) => {
     return <form onSubmit={handleSubmit}>
-        {createField("Email", Input, "email", [required])}
-        {createField("Password", Input, "password", [required],{type: "password"})}
-        {createField(null,"input","rememberMe",[],{type: "checkbox"},"remember me")}
+        {createField("Email", Input, "email", [required], {type: "text"})}
+        {createField("Password", Input, "password", [required], {type: "password"})}
+        {/*{createField(null,"input","rememberMe",[],{type: "checkbox"},"remember me")}*/}
         {captchaURL && <img src={captchaURL} alt={''}/>}
         {captchaURL && createField("", Input, "captchaURL", [required])}
         {
@@ -31,13 +32,15 @@ LoginForm = reduxForm({form: 'login'})(LoginForm)
 const LoginPage = (props) => {
     const onSubmit = (formData) => {
         console.log(formData)
-        props.loginThunkCreator(formData.email, formData.password, formData.rememberMe,formData.captchaURL)
+        props.loginThunkCreator(formData.email, formData.password, formData.rememberMe, formData.captchaURL)
     }
 
     if (props.isAuth) return <Redirect to={'/profile'}/>
-    return <div>
-        <h1>LoginPage</h1>
-        <LoginForm onSubmit={onSubmit} captchaURL={props.captchaURL}/>
+    return <div className={style.loginForm}>
+        <div className={style.loginFormContainer}>
+            <h1>Login</h1>
+            <LoginForm onSubmit={onSubmit} captchaURL={props.captchaURL}/>
+        </div>
     </div>
 }
 

@@ -5,3 +5,70 @@
     border: 2px solid darkred;
 }
 
+.loginForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /*border: 1px solid teal;*/
+}
+
+.loginFormContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /*border: 1px solid blue;*/
+}
+
+.loginFormContainer h1{
+    color: #224b79;
+    text-align: center;
+}
+
+.loginFormContainer input[type="text"],
+.loginFormContainer input[type="password"]{
+    border: 		0;
+    display: 		block;
+    margin: 		20px auto;
+    text-align: 	center;
+    border-bottom:	2px solid #4b77a8;
+    padding: 		13px 10px;
+    width: 			200px;
+    outline: 		none;
+    color: 			#285886;
+    transition: 	width 0.25s;
+    background-color: #dce1e5;
+}
+
+.loginFormContainer input[type="text"]:focus,
+.loginFormContainer input[type="password"]:focus{
+    width: 			220px;
+    border-color: 	#224b79;
+    background-color: #dce1e5;
+}
+
+.loginFormContainer button{
+    padding: 			13px 90px;
+    /*border: 			0;*/
+    background-color:   #4977a8;
+    display: 			block;
+    text-decoration: 	none;
+    margin: 			30px auto 20px;
+    text-align: 		center;
+    border: 			2px solid #4977a8;
+
+    outline: 			none;
+    color: 				white;
+    border-radius: 		12px;
+    transition: 		width 0.30s;
+    cursor: 			pointer;
+}
+
+.loginFormContainer button:hover{
+    background-color: #dce1e5;
+    color: #224b79;
+}
+
+
+
