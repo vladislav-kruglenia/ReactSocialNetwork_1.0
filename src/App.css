@@ -1,5 +1,6 @@
 .app-wrapper {
     width: 100%;
+    min-width: 995px;
     height: 100%;
     margin: 0 auto;
     background-color: #edeef0;
@@ -28,10 +29,11 @@ a {
     display: flex;
     justify-content: space-between;
 
-    /*border: 1px solid rebeccapurple;*/
+
     width: 995px;
     min-width: 995px;
     padding-top: 15px;
+    /*border: 1px solid rebeccapurple;*/
 }
 
 .app-content{

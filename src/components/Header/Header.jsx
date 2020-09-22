@@ -4,9 +4,9 @@ import {NavLink} from "react-router-dom";
 
 const Header = (props) => {
 
-    return <>
-        <div className={s.header}>
-            Header content
+    return <div className={s.header}>
+        <div className={s.headerContainer}>
+            <div className={s.titleHeader}>Social network</div>
             <div className={s.loginBlock}>
                 {
                     props.isAuth
@@ -15,7 +15,7 @@ const Header = (props) => {
                 }
             </div>
         </div>
-    </>
+    </div>
 }
 
 export default Header

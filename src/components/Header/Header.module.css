@@ -1,12 +1,40 @@
 .header {
-    /*grid-area: h;*/
+    display: flex;
+    justify-content: center;
     background-color: #4b77a8;
     height: 43px;
+    min-width: 995px;
+    color:#ffffff;
 }
 
-.loginBlock{
-    float:right;
+.headerContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 995px;
 }
+
+.titleHeader{
+    color:#ffffff;
+    line-height: 0;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.loginBlock button,
+.loginBlock a{
+    height: 25px;
+    border:none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #285886;
+    background-color: #dce1e5;
+}
+.loginBlock a{
+    line-height: 0;
+    padding: 5px;
+}
+
 
 
 
