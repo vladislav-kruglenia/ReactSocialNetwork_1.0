@@ -13,7 +13,7 @@ const DialogItem = (props) => {
             </NavLink>
         </div>
     )
-}
+};
 
 
 

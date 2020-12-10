@@ -27,7 +27,7 @@ class Users extends React.Component {
 
     onPageChanged = (pageNumber) => {
         this.props.pageChange(pageNumber, this.props.pageSize)
-    }
+    };
 
     render() {
         return <>
@@ -49,7 +49,7 @@ let dispatchObject = {
     pageChange: pageChangeThunkCreator,
     followUser: followUserThunkCreator,
     unFollowUser: unFollowUserThunkCreator
-}
+};
 
 /*
 let mapStateToProps = (state) => {
@@ -73,7 +73,7 @@ let mapStateToProps = (state) => {
         isFetching: getIsFetching(state),
         followingInProgress: getFollowingInProgress(state)
     }
-}
+};
 
 export default compose(
     connect(mapStateToProps, dispatchObject),

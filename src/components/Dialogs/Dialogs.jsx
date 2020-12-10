@@ -10,7 +10,7 @@ import s2 from "../../components/common/TextareaStyle.module.css"
 import s3 from "../../components/common/Button.module.css"
 
 
-const maxLength10 = maxLengthCreator(10)
+const maxLength10 = maxLengthCreator(10);
 
 
 let AddMessageForm = (props) => {
@@ -23,9 +23,9 @@ let AddMessageForm = (props) => {
         />
         <button className={s3.buttonStyle}>Send</button>
     </form>;
-}
+};
 
-AddMessageForm = reduxForm({form: "addNewMessage"})(AddMessageForm)
+AddMessageForm = reduxForm({form: "addNewMessage"})(AddMessageForm);
 
 const Dialogs = (props) => {
 
@@ -34,19 +34,19 @@ const Dialogs = (props) => {
     }*/
 
     let addNewMessage = (formData) => {
-        console.log(formData)
-        props.addMessageCollBack(formData.newMessage)
+        console.log(formData);
+        props.addMessageCollBack(formData.newMessage);
         props.resetText("addNewMessage")
-    }
+    };
 
     /*let addMessage = () => {
         props.addMessageCollBack()
     }*/
 
-    let dialogsElements = props.dialogsPage.dialogs.map(d => <DialogItem key={d.id} name={d.name} id={d.id}/>)
-    let messagesElements = props.dialogsPage.messages.map(m => <Message key={m.message} message={m.message}/>)
+    let dialogsElements = props.dialogsPage.dialogs.map(d => <DialogItem key={d.id} name={d.name} id={d.id}/>);
+    let messagesElements = props.dialogsPage.messages.map(m => <Message key={m.message} message={m.message}/>);
 
-    if (!props.isAuth) return <Redirect to={'/login'}/>
+    if (!props.isAuth) return <Redirect to={'/login'}/>;
 
     return (
         <div className={s.dialogsContainer}>
@@ -64,7 +64,7 @@ const Dialogs = (props) => {
 
         </div>
     )
-}
+};
 
 
 export default Dialogs

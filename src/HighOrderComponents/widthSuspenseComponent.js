@@ -9,7 +9,7 @@ const withSuspense = (Component) => {
             </Suspense>
         );
     }
-}
+};
 
 export default withSuspense
 

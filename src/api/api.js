@@ -6,7 +6,7 @@ const instance = axios.create({
     headers: {
         "API-KEY": "b62906a1-ef51-4529-9972-b0f72b1f58cb"
     }
-})
+});
 
 
 export let usersAPI = {
@@ -30,11 +30,11 @@ export let usersAPI = {
             })
     },
     getProfile(numberID) {
-        console.warn('Obsolete method. Please use profileAPI object')
+        console.warn('Obsolete method. Please use profileAPI object');
         return profileAPI.getProfile(numberID)
     }
 
-}
+};
 
 export let authAPI = {
     me(){
@@ -50,14 +50,14 @@ export let authAPI = {
         return instance.delete(`auth/login`)
     }
 
-}
+};
 
 export let securityAPI = {
     captchaUrl(){
         return instance.get(`/security/get-captcha-url`)
     }
 
-}
+};
 
 export let profileAPI = {
     getProfile(numberID) {
@@ -76,8 +76,8 @@ export let profileAPI = {
         return instance.put(`profile`, profile)
     },
     savePhoto(photoFile) {
-        const formData = new FormData()
-        formData.append("image",photoFile)
+        const formData = new FormData();
+        formData.append("image",photoFile);
 
         return instance.put(`profile/photo`,formData,{
             headers:{
@@ -85,5 +85,4 @@ export let profileAPI = {
             }
         })
     }
-
-}
+};

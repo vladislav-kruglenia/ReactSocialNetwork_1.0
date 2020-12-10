@@ -13,14 +13,14 @@ import {compose} from "redux";
 
 class ProfileContainer extends React.Component {
     updateUserParams(){
-        let numberID = this.props.match.params.userId
+        let numberID = this.props.match.params.userId;
         if(!numberID) {
-            numberID = this.props.authorizedUserId
+            numberID = this.props.authorizedUserId;
             if(!numberID){
                 this.props.history.push("/login")
             }
         } //8845
-        this.props.getProfileInfo(numberID)
+        this.props.getProfileInfo(numberID);
         this.props.getUserStatus(numberID)
     }
     componentDidMount() {
@@ -54,14 +54,14 @@ let mapStateToProps = (state) => {
         status: state.profilePage.status,
         authorizedUserId: state.auth.id
     }
-}
-let dispatchObject ={
+};
+let dispatchObject = {
     getProfileInfo: getProfileInfoThunkCreator,
     getUserStatus: getStatusThunkCreator,
     updateUserStatus: updateStatusThunkCreator,
     savePhoto: savePhotoThunkCreator,
     saveProfileData: saveProfileDataThunkCreator
-}
+};
 
 export default compose(
     connect(mapStateToProps, dispatchObject),

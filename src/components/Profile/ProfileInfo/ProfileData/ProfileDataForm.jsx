@@ -6,7 +6,7 @@ import style from "../../../LoginPage/LoginPage.module.css";
 import s2 from "../../../common/Button.module.css";
 import s from "../ProfileInfo.module.css";
 
-const ProfileDataForm = ({handleSubmit,exitToEditPage,profile,error}) => {
+const ProfileDataForm = ({handleSubmit, exitToEditPage, profile, error}) => {
     return (
         <>
             <button className={s2.buttonStyle} onClick={exitToEditPage}>Exit</button>
@@ -28,15 +28,15 @@ const ProfileDataForm = ({handleSubmit,exitToEditPage,profile,error}) => {
                     <div><b>About me:</b></div>
                     <div>{createField("About me", Textarea, "aboutMe", [required])}</div>
                 </div>
-                 <div>
-                     <b>My contacts: </b>
-                     {Object.keys(profile.contacts).map(p => {
-                    return <div key={p} className={s.contact}>
-                        <div><i>{p}</i></div>
-                        <div>{createField(p, Input, "contacts." + p)}</div>
-                    </div>
-                })}
-                 </div>
+                <div>
+                    <b>My contacts: </b>
+                    {Object.keys(profile.contacts).map(p => {
+                        return <div key={p} className={s.contact}>
+                            <div><i>{p}</i></div>
+                            <div>{createField(p, Input, "contacts." + p)}</div>
+                        </div>
+                    })}
+                </div>
                 {
                     error && <div className={style.formSummaryError}>
                         {error}
@@ -49,7 +49,7 @@ const ProfileDataForm = ({handleSubmit,exitToEditPage,profile,error}) => {
             </form>
         </>
     )
-}
-const ProfileDataFormContainer = reduxForm({form: 'edit-profile'})(ProfileDataForm)
+};
+const ProfileDataFormContainer = reduxForm({form: 'edit-profile'})(ProfileDataForm);
 
 export default ProfileDataFormContainer

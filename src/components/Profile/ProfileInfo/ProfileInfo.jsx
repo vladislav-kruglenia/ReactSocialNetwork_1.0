@@ -11,9 +11,9 @@ const ProfileInfo = (props) => {
     if (!props.profile) {
         return <Preloader/>
     }
-    let [editMode, setEditMode] = useState(false)
+    let [editMode, setEditMode] = useState(false);
     let formDataEdit = (formData) => {
-        console.log(formData)
+        console.log(formData);
         props.saveProfileData(formData)
             .then(() => {
                 setEditMode(false)
@@ -46,7 +46,7 @@ const ProfileInfo = (props) => {
             </div>
         </div>
     )
-}
+};
 const ProfileData = (props) => {
     return (
         <div className={s.contactsDataContainer}>
@@ -78,5 +78,5 @@ const ProfileData = (props) => {
 
         </div>
     )
-}
+};
 export default ProfileInfo

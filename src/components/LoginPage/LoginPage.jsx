@@ -6,7 +6,6 @@ import {connect} from "react-redux";
 import {loginThunkCreator} from "../../redux/authReducer";
 import {Redirect} from "react-router-dom";
 import style from "./LoginPage.module.css"
-import s2 from "../common/Button.module.css";
 
 
 let LoginForm = ({handleSubmit, error, captchaURL}) => {
@@ -25,30 +24,29 @@ let LoginForm = ({handleSubmit, error, captchaURL}) => {
             <button>Login</button>
         </div>
     </form>
-}
+};
 
-LoginForm = reduxForm({form: 'login'})(LoginForm)
+LoginForm = reduxForm({form: 'login'})(LoginForm);
 
 const LoginPage = (props) => {
     const onSubmit = (formData) => {
-        console.log(formData)
+        console.log(formData);
         props.loginThunkCreator(formData.email, formData.password, formData.rememberMe, formData.captchaURL)
-    }
-
-    if (props.isAuth) return <Redirect to={'/profile'}/>
+    };
+    if (props.isAuth) return <Redirect to={'/profile'}/>;
     return <div className={style.loginForm}>
         <div className={style.loginFormContainer}>
             <h1>Login</h1>
             <LoginForm onSubmit={onSubmit} captchaURL={props.captchaURL}/>
         </div>
     </div>
-}
+};
 
 const mapStateToProps = (state) => {
     return {
         isAuth: state.auth.isAuth,
         captchaURL: state.auth.captchaURL
     }
-}
+};
 
 export default connect(mapStateToProps, {loginThunkCreator})(LoginPage)

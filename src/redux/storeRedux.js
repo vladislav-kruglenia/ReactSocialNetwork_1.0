@@ -15,13 +15,13 @@ let reducers = combineReducers({
     auth: authReducer,
     app: appReducer,
     form: formReducer
-})
+});
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducers, composeEnhancers(applyMiddleware(thunkMiddleware)));
 
 //let store = createStore(reducers, applyMiddleware(thunkMiddleware))
 
-window.store = store
+window.store = store;
 
 export default store

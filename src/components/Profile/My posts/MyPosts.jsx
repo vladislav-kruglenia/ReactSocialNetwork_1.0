@@ -25,9 +25,9 @@ let AddPostForm = (props) => {
             <button className={s2.buttonStyle} onClick={props.onClick}>Add post</button>
         </div>
     </form>
-}
+};
 
-AddPostForm = reduxForm({form: "addNewPost"})(AddPostForm)
+AddPostForm = reduxForm({form: "addNewPost"})(AddPostForm);
 
 
 const MyPosts = React.memo(props => {
@@ -35,11 +35,11 @@ const MyPosts = React.memo(props => {
         return <></>
     }
     let addNewPost = (formData) => {
-        formData = {...formData, id: props.profilePage.posts.length + 1}
-        console.log(formData)
-        props.addPostCollback(formData)
+        formData = {...formData, id: props.profilePage.posts.length + 1};
+        console.log(formData);
+        props.addPostCollback(formData);
         props.resetText('addNewPost')
-    }
+    };
 
     let postsElements = props.profilePage.posts.slice(0).reverse().map(p => (
         <Post
@@ -48,7 +48,7 @@ const MyPosts = React.memo(props => {
             likeCounts={p.likeCounts}
             name={props.profilePage.profile.fullName}
             photo={props.profilePage.profile.photos.small}
-        />))
+        />));
 
     return (
         <div className={s.myPostsContainer}>
@@ -61,6 +61,6 @@ const MyPosts = React.memo(props => {
             </div>
         </div>
     )
-})
+});
 
 export default MyPosts

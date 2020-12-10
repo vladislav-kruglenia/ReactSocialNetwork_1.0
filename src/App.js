@@ -68,14 +68,14 @@ class App extends React.Component {
 
 let mapStateToProps = (state) => ({
     initialized: state.app.initialized
-})
+});
 
 export let AppContainer = compose(
     withRouter,
     connect(mapStateToProps, {authMe: initializeApp})
-)(App)
+)(App);
 
-export const SamuraiJSApp = (props) => {
+export const SamuraiJSApp = () => {
     return (
         <BrowserRouter>
             <Provider store={store}>
@@ -83,7 +83,7 @@ export const SamuraiJSApp = (props) => {
             </Provider>
         </BrowserRouter>
     )
-}
+};
 
 /*export const SamuraiJSApp = (props) =>{
     return <React.StrictMode>

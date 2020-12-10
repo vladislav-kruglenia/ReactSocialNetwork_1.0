@@ -3,8 +3,8 @@ import s from './ProfileStatus.module.css'
 import s2 from './../../../common/Button.module.css'
 
 const ProfileStatusWidthHooks = (props) => {
-    let [editMode, setEditMode] = useState(false)
-    let [status, setStatus] = useState(props.status)
+    let [editMode, setEditMode] = useState(false);
+    let [status, setStatus] = useState(props.status);
 
     useEffect(() => {
         setStatus(props.status)
@@ -14,7 +14,7 @@ const ProfileStatusWidthHooks = (props) => {
         setEditMode(true)
     };
     let deactivateEditMode = () => {
-        setEditMode(false)
+        setEditMode(false);
         props.updateStatus(status)
     };
 
@@ -57,6 +57,6 @@ const ProfileStatusWidthHooks = (props) => {
             }
         </div>
     )
-}
+};
 
 export default ProfileStatusWidthHooks

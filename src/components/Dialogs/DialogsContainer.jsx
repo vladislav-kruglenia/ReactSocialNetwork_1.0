@@ -10,7 +10,7 @@ let mapStateToProps = (state) =>{
         dialogsPage: state.dialogsPage,
         isAuth: state.auth.isAuth
     }
-}
+};
 let mapDispatchToProps = (dispatch) =>{
     return{
         onMessageChangeCollBack: (newText) =>{
@@ -21,7 +21,7 @@ let mapDispatchToProps = (dispatch) =>{
         },
         resetText:(formName) => dispatch(reset(formName))
     }
-}
+};
 
 export default compose(
     withAuthRedirect,
