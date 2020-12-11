@@ -18,19 +18,27 @@ import {
     getTotalUsersCount,
     getUsers
 } from "../../redux/usersSelectors";
+import {
+    UsContDispatchPropsType,
+    UsContMapStatePropsType,
+    UsContOwnPropsType,
+    UsersContainerPropsType
+} from "./UsersTypes";
+import {AppStateType} from "../../redux/storeRedux";
 
 
-class Users extends React.Component {
+class Users extends React.Component<UsersContainerPropsType>{
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
 
-    onPageChanged = (pageNumber) => {
+    onPageChanged = (pageNumber: number) => {
         this.props.pageChange(pageNumber, this.props.pageSize)
     };
 
     render() {
         return <>
+            <h1>{this.props.pageName}</h1>
             {this.props.isFetching ? <Preloader/> : null}
             <UsersUI totalUsersCount={this.props.totalUsersCount}
                      pageSize={this.props.pageSize}
@@ -44,12 +52,7 @@ class Users extends React.Component {
     }
 }
 
-let dispatchObject = {
-    getUsers: getUsersThunkCreator,
-    pageChange: pageChangeThunkCreator,
-    followUser: followUserThunkCreator,
-    unFollowUser: unFollowUserThunkCreator
-};
+
 
 /*
 let mapStateToProps = (state) => {
@@ -64,7 +67,7 @@ let mapStateToProps = (state) => {
 }
 */
 
-let mapStateToProps = (state) => {
+let mapStateToProps = (state:AppStateType):UsContMapStatePropsType => {
     return {
         usersPage: getUsers(state),
         pageSize: getPageSize(state),
@@ -74,9 +77,16 @@ let mapStateToProps = (state) => {
         followingInProgress: getFollowingInProgress(state)
     }
 };
+let dispatchObject = {
+    getUsers: getUsersThunkCreator,
+    pageChange: pageChangeThunkCreator,
+    followUser: followUserThunkCreator,
+    unFollowUser: unFollowUserThunkCreator
+};
+
 
 export default compose(
-    connect(mapStateToProps, dispatchObject),
+    connect<UsContMapStatePropsType, UsContDispatchPropsType, UsContOwnPropsType, AppStateType>(mapStateToProps, dispatchObject),
     withAuthRedirect
 )(Users)
 

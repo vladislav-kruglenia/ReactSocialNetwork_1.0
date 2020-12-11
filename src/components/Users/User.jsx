@@ -6,7 +6,7 @@ import s2 from "../common/Button.module.css";
 
 
 let User = ({user, ...props}) => {
-    let u = user
+    let u = user;
     return (
         <div className={s.userContainer}>
             <div className={s.userLeftContainer}>
@@ -38,6 +38,6 @@ let User = ({user, ...props}) => {
             </div>
         </div>
     )
-}
+};
 
 export default User

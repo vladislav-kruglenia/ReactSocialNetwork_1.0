@@ -1,10 +1,11 @@
-import React from "react";
+import React, {FC} from "react";
 import Paginator from "../common/Paginator/Paginator";
 import User from "./User";
 import s from "./Users.module.css"
+import {UsersUIPropsType} from "./UsersTypes";
 
 
-let UsersUI = ({totalUsersCount, pageSize, currentPage, onPageChanged, ...props}) => {
+let UsersUI: FC<UsersUIPropsType> = ({totalUsersCount, pageSize, currentPage, onPageChanged, ...props}) => {
     return <div>
         <div className={s.usersContainer}>
             {
@@ -24,6 +25,6 @@ let UsersUI = ({totalUsersCount, pageSize, currentPage, onPageChanged, ...props}
             onPageChanged={onPageChanged}
         />
     </div>
-}
+};
 
 export default UsersUI
