@@ -1,11 +1,11 @@
 import {authAPI, securityAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
+import {SetCaptchaUrlAction, SetUserDataActionType, StartStateType} from "./Types/AuthReducerTypes";
 
-const SET_USER_DATA = "AUTH_SET_USER_DATA";
-const SET_CAPTCHA_URL = "SET_CAPTCHA_URL";
+export const SET_USER_DATA = "AUTH_SET_USER_DATA";
+export const SET_CAPTCHA_URL = "SET_CAPTCHA_URL";
 
-
-let startState = {
+let startState: StartStateType = {
     id: null,
     login: null,
     email: null,
@@ -13,7 +13,7 @@ let startState = {
     captchaURL: null
 };
 
-let authReducer = (state = startState, action) => {
+let authReducer = (state = startState, action: any):StartStateType => {
     switch (action.type) {
         case SET_USER_DATA: {
             return {
@@ -34,13 +34,15 @@ let authReducer = (state = startState, action) => {
 };
 
 //actionCreators
-export let setUserData = (id, email, login, isAuth) => {
+
+export let setUserData = (id: number|null, email: string|null, login: string|null, isAuth: boolean):SetUserDataActionType => {
     return {
         type: SET_USER_DATA,
         data: {id, email, login, isAuth}
     }
 };
-export let setCaptchaUrl = (url) => {
+
+export let setCaptchaUrl = (url: string): SetCaptchaUrlAction => {
     return {
         type: SET_CAPTCHA_URL,
         captchaURL: url
@@ -49,7 +51,7 @@ export let setCaptchaUrl = (url) => {
 //actionCreators
 
 //thunkCreators
-export let authMeThunkCreator = () => async (dispatch) => {
+export let authMeThunkCreator = () => async (dispatch: any) => {
     let response = await authAPI.me();
     if (response.resultCode === 0) {
         let {id, email, login} = response.data;
@@ -58,12 +60,12 @@ export let authMeThunkCreator = () => async (dispatch) => {
 };
 
 
-export let loginThunkCreator = (login, password, rememberMe = false, captchaURL = null) => async (dispatch) => {
+export let loginThunkCreator = (login: string, password: string, rememberMe = false, captchaURL = null) => async (dispatch: any) => {
     let response = await authAPI.login(login, password, rememberMe, captchaURL);
     if (response.data.resultCode === 0) {
         dispatch(authMeThunkCreator())
     } else {
-        if(response.data.resultCode === 10){
+        if (response.data.resultCode === 10) {
             dispatch(getCaptchaThunkCreator())
         }
 
@@ -71,7 +73,7 @@ export let loginThunkCreator = (login, password, rememberMe = false, captchaURL 
         dispatch(stopSubmit("login", {_error: message}))
     }
 };
-export let getCaptchaThunkCreator = () => async (dispatch) => {
+export let getCaptchaThunkCreator = () => async (dispatch: any) => {
     let response = await securityAPI.captchaUrl();
     let captcha = response.data.url;
 
@@ -79,7 +81,7 @@ export let getCaptchaThunkCreator = () => async (dispatch) => {
 };
 
 
-export let logoutThunkCreator = () => async (dispatch) => {
+export let logoutThunkCreator = () => async (dispatch: any) => {
     let response = await authAPI.logout();
     if (response.data.resultCode === 0) {
         dispatch(setUserData(null, null, null, false))
@@ -99,37 +101,5 @@ export default authReducer
     name: 'Anton',
     status: "i'm not alcoholic",
     location: {city: "Minsk", country: "Belarus"}
-},
-    {
-        id: 2,
-        imgURL: "http://images6.fanpop.com/image/photos/40300000/Vlad-Was-Looking-For-His-Wife-Mirena-vlad-tepes-iii-40312885-300-447.jpg",
-        followed: true,
-        name: 'Vlad',
-        status: "i'm alcoholic",
-        location: {city: "Soligorsk", country: "Belarus"}
-    },
-    {
-        id: 3,
-        imgURL: "http://images6.fanpop.com/image/photos/40300000/Vlad-Was-Looking-For-His-Wife-Mirena-vlad-tepes-iii-40312885-300-447.jpg",
-        followed: false,
-        name: 'Alexei',
-        status: "i'm alcoholic",
-        location: {city: "Minsk", country: "Belarus"}
-    },
-    {
-        id: 4,
-        imgURL: "http://images6.fanpop.com/image/photos/40300000/Vlad-Was-Looking-For-His-Wife-Mirena-vlad-tepes-iii-40312885-300-447.jpg",
-        followed: true,
-        name: 'Arthur',
-        status: "i'm not alcoholic",
-        location: {city: "Soligorsk", country: "Belarus"}
-    },
-    {
-        id: 5,
-        imgURL: "http://images6.fanpop.com/image/photos/40300000/Vlad-Was-Looking-For-His-Wife-Mirena-vlad-tepes-iii-40312885-300-447.jpg",
-        followed: true,
-        name: 'Roma',
-        status: "i'm alcoholic",
-        location: {city: "Soligorsk", country: "Belarus"}
-    }
+}
 ]*/

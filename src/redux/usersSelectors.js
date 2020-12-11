@@ -5,7 +5,7 @@ let getUsersSelector = (state) =>{
 };
 
 export let getUsers = createSelector(getUsersSelector, (users) =>{
-    return users.filter(u => u === true)
+    return users.filter(u => true)
 });
 
 export let getPageSize = (state) =>{

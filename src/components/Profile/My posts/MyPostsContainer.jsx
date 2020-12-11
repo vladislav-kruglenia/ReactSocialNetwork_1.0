@@ -12,8 +12,8 @@ let mapStateToProps = (state) =>{
 
 let mapDispatchToProps = (dispatch) =>{
     return{
-        addPostCollback: (text) => {
-            dispatch(actionCreator.addPost(text))
+        addPostCollback: (data) => {
+            dispatch(actionCreator.addPost(data))
         },
         resetText:(formName) => dispatch(reset(formName))
     }
