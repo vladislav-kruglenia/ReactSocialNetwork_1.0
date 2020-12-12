@@ -1,5 +1,13 @@
 import {UserType} from '../../redux/Types/UsersReducerTypes'
 
+export type UserPropsType = {
+    user: UserType,
+    followingInProgress: Array<number>,
+
+    followUser: (userID:number) => void,
+    unFollowUser: (userID:number) => void
+}
+
 export type UsersUIPropsType = {
     totalUsersCount: number,
     pageSize: number,
@@ -11,7 +19,9 @@ export type UsersUIPropsType = {
     unFollowUser: (userID:number) => void,
     onPageChanged: (p: number) => void,
 }
-// UsersContainerProps
+
+
+/////////////////////////// UsersContainerProps ///////////////////////////
 export type UsContOwnPropsType = {
     pageName: string
 }
@@ -33,4 +43,5 @@ export type UsContDispatchPropsType = {
 }
 
 export type UsersContainerPropsType = UsContMapStatePropsType & UsContDispatchPropsType & UsContOwnPropsType
-// UsersContainerProps
+/////////////////////////// UsersContainerProps ///////////////////////////
+
