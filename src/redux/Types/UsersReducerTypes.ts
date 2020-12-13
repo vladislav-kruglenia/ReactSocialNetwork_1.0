@@ -17,7 +17,9 @@ export type UserType = {
     followed: boolean
 }
 
-export type FollowActionType = {
+
+
+export type FollowOrUnFollowActionType = {
     type: typeof FOLLOW | typeof UNFOLLOW,
     id: number
 }
@@ -45,4 +47,11 @@ export type ChangeFollowingProgressActionType = {
     followingInProgress: boolean,
     userID: number
 }
+
+export type UsersActionsTypes = FollowOrUnFollowActionType
+    | SetUsersActionType
+    | SetCurrentPageActionType
+    | SetTotalUsersCountActionType
+    | ChangeFetchingActionType
+    | ChangeFollowingProgressActionType
 

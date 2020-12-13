@@ -1,4 +1,10 @@
-import {AddMessageType, DialogType, MessageType, UpdateNewMessageTextType} from "./Types/DialogsReducerTypes";
+import {
+    AddMessageActionType,
+    DialogActionsTypes,
+    DialogType,
+    MessageType,
+    UpdateNewMessageTextActionType
+} from "./Types/DialogsReducerTypes";
 
 export const ADD_MESSAGE = "ADD_MESSAGE";
 export const UPDATE_NEW_MESSAGE_TEXT = "UPDATE_NEW_MESSAGE_TEXT";
@@ -21,7 +27,7 @@ let startState = {
 
 type StartStateType = typeof startState
 
-let dialogsReducer = (state = startState, action: any): StartStateType => {
+let dialogsReducer = (state = startState, action: DialogActionsTypes): StartStateType => {
     switch (action.type) {
         case ADD_MESSAGE: {
             let newMessage = {
@@ -46,13 +52,13 @@ let dialogsReducer = (state = startState, action: any): StartStateType => {
 };
 
 export let actionCreator = {
-    updateNewMessageText(text: string): UpdateNewMessageTextType {
+    updateNewMessageText(text: string): UpdateNewMessageTextActionType {
         return {
             type: UPDATE_NEW_MESSAGE_TEXT,
             text: text
         }
     },
-    addMessage(text: string): AddMessageType {
+    addMessage(text: string): AddMessageActionType {
         return {
             type: ADD_MESSAGE,
             newMessageText: text

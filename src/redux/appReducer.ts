@@ -1,5 +1,5 @@
 import {authMeThunkCreator} from "./authReducer";
-import {InitializedSuccessType, StartStateType} from "./Types/AppReducerTypes";
+import {AppActionsTypes, InitializedSuccessActionType, StartStateType, ThunkType} from "./Types/AppReducerTypes";
 
 
 export const INITIALIZED_SUCCESS = "INITIALIZED_SUCCESS";
@@ -8,7 +8,7 @@ let startState:StartStateType = {
     initialized: false
 };
 
-let appReducer = (state:StartStateType = startState, action:any):StartStateType => {
+let appReducer = (state:StartStateType = startState, action:AppActionsTypes):StartStateType => {
     switch (action.type) {
         case INITIALIZED_SUCCESS: {
             return {
@@ -23,7 +23,7 @@ let appReducer = (state:StartStateType = startState, action:any):StartStateType 
 };
 
 //actionCreators
-export let initializedSuccess = ():InitializedSuccessType => {
+export let initializedSuccess = ():InitializedSuccessActionType => {
     return {
         type: INITIALIZED_SUCCESS
     }
@@ -31,7 +31,8 @@ export let initializedSuccess = ():InitializedSuccessType => {
 //actionCreators
 
 //thunkCreators
-export let initializeApp = () => (dispatch:any) => {
+// @ts-ignore
+export let initializeApp = ():ThunkType => (dispatch) => {
     let promise = dispatch(authMeThunkCreator());
     // Обычно dispatch выполняется и уничтожается.
     // Но тут он что-то возвращает(в нашем случае промис).

@@ -2,12 +2,13 @@ import {usersAPI} from "../api/api";
 import {updateObjectInArray} from "../utils/objectHelpers";
 import {
     ChangeFetchingActionType, ChangeFollowingProgressActionType,
-    FollowActionType,
+    FollowOrUnFollowActionType,
     SetCurrentPageActionType,
     SetTotalUsersCountActionType,
-    SetUsersActionType,
+    SetUsersActionType, UsersActionsTypes,
     UserType
 } from "./Types/UsersReducerTypes";
+import { ThunkType } from "./Types/CommonTypes";
 
 export const FOLLOW = "FOLLOW";
 export const UNFOLLOW = "UNFOLLOW";
@@ -29,7 +30,7 @@ let startState = {
 
 type StartStateType = typeof startState
 
-let usersReducer = (state = startState, action: any): StartStateType => {
+let usersReducer = (state = startState, action: UsersActionsTypes): StartStateType => {
     switch (action.type) {
         case FOLLOW: {
             return {
@@ -84,49 +85,49 @@ let usersReducer = (state = startState, action: any): StartStateType => {
 
 
 //actionCreators
-export let follow = (userID: number): FollowActionType => {
+export let follow = (userID: number): FollowOrUnFollowActionType => {
     return {
         type: FOLLOW,
         id: userID
     }
 };
 
-export let unFollow = (userID:number):FollowActionType => {
+export let unFollow = (userID: number): FollowOrUnFollowActionType => {
     return {
         type: UNFOLLOW,
         id: userID
     }
 };
 
-export let setUsers = (state: Array<UserType>):SetUsersActionType => {
+export let setUsers = (state: Array<UserType>): SetUsersActionType => {
     return {
         type: SET_USERS,
         users: state
     }
 };
 
-export let setCurrentPage = (pageNumber:number):SetCurrentPageActionType => {
+export let setCurrentPage = (pageNumber: number): SetCurrentPageActionType => {
     return {
         type: SET_CURRENT_PAGE,
         currentPage: pageNumber
     }
 };
 
-export let setTotalUsersCount = (totalCountNumber:number):SetTotalUsersCountActionType => {
+export let setTotalUsersCount = (totalCountNumber: number): SetTotalUsersCountActionType => {
     return {
         type: SET_TOTAL_USERS_COUNT,
         totalUsersCount: totalCountNumber
     }
 };
 
-export let changeFetching = (isFetching:boolean):ChangeFetchingActionType => {
+export let changeFetching = (isFetching: boolean): ChangeFetchingActionType => {
     return {
         type: CHANGE_FETCHING,
         isFetching: isFetching
     }
 };
 
-export let changeFollowingProgress = (progress:boolean, userID:number):ChangeFollowingProgressActionType => {
+export let changeFollowingProgress = (progress: boolean, userID: number): ChangeFollowingProgressActionType => {
     return {
         type: TOGGLE_IS_FOLLOWING_PROGRESS,
         followingInProgress: progress,
@@ -136,8 +137,9 @@ export let changeFollowingProgress = (progress:boolean, userID:number):ChangeFol
 //actionCreators
 
 //thunkCreators
-export let getUsersThunkCreator = (currentPage:number, pageSize:number) => {
-    return async (dispatch:any) => {
+
+export let getUsersThunkCreator = (currentPage: number, pageSize: number): ThunkType => {
+    return async (dispatch) => {
         dispatch(changeFetching(true));
         let response = await usersAPI.getUsers(currentPage, pageSize);
         dispatch(changeFetching(false));
@@ -145,8 +147,8 @@ export let getUsersThunkCreator = (currentPage:number, pageSize:number) => {
         dispatch(setTotalUsersCount(response.totalCount))
     }
 };
-export let pageChangeThunkCreator = (pageNumber:number, pageSize:number) => {
-    return async (dispatch:any) => {
+export let pageChangeThunkCreator = (pageNumber: number, pageSize: number): ThunkType => {
+    return async (dispatch) => {
         dispatch(changeFetching(true));
         dispatch(setCurrentPage(pageNumber));
         let response = await usersAPI.getUsers(pageNumber, pageSize);
@@ -155,24 +157,29 @@ export let pageChangeThunkCreator = (pageNumber:number, pageSize:number) => {
     }
 };
 
-let followUnfollowFlow = async (dispatch:any, userID:number, apiMethod:any, actionCreator:any) => {
-    dispatch(changeFollowingProgress(true, userID));
-    let response = await apiMethod(userID);
-    if (response.resultCode === 0) {
-        dispatch(actionCreator(userID))
+let followUnfollowFlow = (userID: number,
+                          apiMethod: any,
+                          actionCreator: (userId: number) => FollowOrUnFollowActionType
+): ThunkType => {
+    return async (dispatch) => {
+        dispatch(changeFollowingProgress(true, userID));
+        let response = await apiMethod(userID);
+        if (response.resultCode === 0) {
+            dispatch(actionCreator(userID))
+        }
+        dispatch(changeFollowingProgress(false, userID))
     }
-    dispatch(changeFollowingProgress(false, userID))
 };
 
-export let followUserThunkCreator = (userID:number) => {
-    return async (dispatch:any) => {
-        await followUnfollowFlow(dispatch, userID, usersAPI.follow.bind(usersAPI), follow)
+export let followUserThunkCreator = (userID: number): ThunkType => {
+    return async () => {
+        await followUnfollowFlow(userID, usersAPI.follow.bind(usersAPI), follow)
     }
 };
 
-export let unFollowUserThunkCreator = (userID:number) => {
-    return async (dispatch:any) => {
-        await followUnfollowFlow(dispatch, userID, usersAPI.unFollow.bind(usersAPI), unFollow)
+export let unFollowUserThunkCreator = (userID: number): ThunkType => {
+    return async () => {
+        await followUnfollowFlow(userID, usersAPI.unFollow.bind(usersAPI), unFollow)
     }
 };
 //thunkCreators

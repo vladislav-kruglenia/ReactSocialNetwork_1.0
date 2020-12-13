@@ -1,16 +1,16 @@
 import {profileAPI, usersAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
 import {
-    AddPostType,
-    DeletePostType, PhotosType,
+    AddPostActionType,
+    DeletePostActionType, PhotosType,
     PostDataType,
-    PostType,
+    PostType, ProfileActionsTypes,
     ProfileType, SavePhotoSuccessActionType, SetStatusActionType,
-    SetUserProfileType
+    SetUserProfileActionType
 } from "./Types/ProfileReducerTypes";
+import {ThunkType} from "./Types/ProfileReducerTypes";
 
 export const ADD_POST = "PROFILE_ADD_POST";
-//const UPDATE_NEW_POST_TEXT = "UPDATE_NEW_POST_TEXT"
 export const SET_USER_PROFILE = "PROFILE_SET_USER_PROFILE";
 export const SET_STATUS = "PROFILE_SET_STATUS";
 export const DELETE_POST = "PROFILE_DELETE_POST";
@@ -25,7 +25,7 @@ let startState = {
 };
 export type StartStateProfileType = typeof startState
 
-let profileReducer = (state = startState, action:any): StartStateProfileType => {
+let profileReducer = (state = startState, action:ProfileActionsTypes): StartStateProfileType => {
     switch (action.type) {
         case ADD_POST: {
             let newPost = {
@@ -71,13 +71,13 @@ let profileReducer = (state = startState, action:any): StartStateProfileType => 
 };
 //actionCreators
 export let actionCreator = {
-    addPost(postData:PostDataType):AddPostType {
+    addPost(postData:PostDataType):AddPostActionType {
         return {
             type: ADD_POST,
             postData
         }
     },
-    deletePost(id:number):DeletePostType {
+    deletePost(id:number):DeletePostActionType {
         return {
             type: DELETE_POST,
             id
@@ -85,7 +85,7 @@ export let actionCreator = {
     }
 };
 
-export let setUserProfile = (profile:ProfileType):SetUserProfileType => {
+export let setUserProfile = (profile:ProfileType):SetUserProfileActionType => {
     return {
         type: SET_USER_PROFILE,
         profile
@@ -109,22 +109,22 @@ export let savePhotoSuccess = (photos:PhotosType):SavePhotoSuccessActionType => 
 
 //thunkCreators
 
-export let getProfileInfoThunkCreator = (numberID:number) => {
-    return async (dispatch:any) => {
+export let getProfileInfoThunkCreator = (numberID:number | null):ThunkType => {
+    return async (dispatch) => {
         let response = await usersAPI.getProfile(numberID);
         dispatch(setUserProfile(response))
     }
 };
 
-export let getStatusThunkCreator = (numberID:number) => {
-    return async (dispatch:any) => {
+export let getStatusThunkCreator = (numberID:number):ThunkType => {
+    return async (dispatch) => {
         let response = await profileAPI.getStatus(numberID);
         dispatch(setStatus(response.data))
     }
 };
 
-export let updateStatusThunkCreator = (status:string) => {
-    return async (dispatch:any) => {
+export let updateStatusThunkCreator = (status:string):ThunkType => {
+    return async (dispatch) => {
         try {
             let response = await profileAPI.updateStatus(status);
             if (response.data.resultCode === 0) {
@@ -136,18 +136,20 @@ export let updateStatusThunkCreator = (status:string) => {
     }
 };
 
-export let savePhotoThunkCreator = (file:any) => async (dispatch:any) => {
+export let savePhotoThunkCreator = (file:any):ThunkType =>{
+    return async (dispatch) => {
     let response = await profileAPI.savePhoto(file);
     if (response.data.resultCode === 0) {
         dispatch(savePhotoSuccess(response.data.data.photos))
     }
-};
-export let saveProfileDataThunkCreator = (profile:ProfileType) => async (dispatch:any, getState:any) => {
+}};
+export let saveProfileDataThunkCreator = (profile:ProfileType):ThunkType => async (dispatch, getState) => {
     let userId = getState().auth.id;
     let response = await profileAPI.saveProfileData(profile);
     if (response.data.resultCode === 0) {
         dispatch(getProfileInfoThunkCreator(userId))
     } else {
+        // @ts-ignore
         dispatch(stopSubmit("edit-profile", {_error: response.data.messages[0]}));
         return Promise.reject(response.data.messages[0])
     }

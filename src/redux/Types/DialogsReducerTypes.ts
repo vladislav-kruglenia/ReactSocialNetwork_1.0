@@ -10,12 +10,13 @@ export type MessageType = {
     message: string
 }
 
-export type UpdateNewMessageTextType = {
+export type UpdateNewMessageTextActionType = {
     type: typeof UPDATE_NEW_MESSAGE_TEXT,
     text: string
 }
-export type AddMessageType = {
+export type AddMessageActionType = {
     type: typeof ADD_MESSAGE,
     newMessageText: string
 }
 
+export type DialogActionsTypes = UpdateNewMessageTextActionType | AddMessageActionType

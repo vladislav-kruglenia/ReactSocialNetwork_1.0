@@ -1,4 +1,6 @@
 import {SET_CAPTCHA_URL, SET_USER_DATA} from "../authReducer";
+import {ThunkAction} from "redux-thunk";
+import {AppStateType} from "../storeRedux";
 
 export type StartStateType = {
     id: number | null,
@@ -19,7 +21,11 @@ export type SetUserDataActionType = {
     data: SetUserDataType
 }
 
-export type SetCaptchaUrlAction = {
+export type SetCaptchaUrlActionType = {
     type: typeof SET_CAPTCHA_URL,
     captchaURL: string
 }
+
+export type AuthActionsTypes = SetUserDataActionType | SetCaptchaUrlActionType
+
+export type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, AuthActionsTypes>
