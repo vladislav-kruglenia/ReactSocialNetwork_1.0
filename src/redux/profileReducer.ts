@@ -23,9 +23,9 @@ let startState = {
     newPostText: "",
     status: ""
 };
-type StartStateType = typeof startState
+export type StartStateProfileType = typeof startState
 
-let profileReducer = (state = startState, action:any): StartStateType => {
+let profileReducer = (state = startState, action:any): StartStateProfileType => {
     switch (action.type) {
         case ADD_POST: {
             let newPost = {

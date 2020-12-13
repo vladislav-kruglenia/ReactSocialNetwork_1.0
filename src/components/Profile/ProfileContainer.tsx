@@ -9,9 +9,16 @@ import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../HighOrderComponents/widthAuthRedirect";
 import {compose} from "redux";
+import {
+    PrContDispatchPropsType,
+    PrContMapStatePropsType,
+    PrContOwnPropsType,
+    ProfileContainerPropsType
+} from "./Types/ProfileContainerTypes";
+import {AppStateType} from "../../redux/storeRedux";
 
 
-class ProfileContainer extends React.Component {
+class ProfileContainer extends React.Component<ProfileContainerPropsType> {
     updateUserParams(){
         let numberID = this.props.match.params.userId;
         if(!numberID) {
@@ -26,7 +33,7 @@ class ProfileContainer extends React.Component {
     componentDidMount() {
         this.updateUserParams()
     }
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    componentDidUpdate(prevProps:ProfileContainerPropsType) {
         if(this.props.match.params.userId !== prevProps.match.params.userId){
             this.updateUserParams()
         }
@@ -47,15 +54,15 @@ class ProfileContainer extends React.Component {
 
 }
 
-let mapStateToProps = (state) => {
+let mapStateToProps = (state:AppStateType):PrContMapStatePropsType => {
     return {
         profile: state.profilePage.profile,
         isAuth: state.auth.isAuth,
         status: state.profilePage.status,
-        authorizedUserId: state.auth.id
+        authorizedUserId: state.auth.id,
     }
 };
-let dispatchObject = {
+let dispatchObject:PrContDispatchPropsType = {
     getProfileInfo: getProfileInfoThunkCreator,
     getUserStatus: getStatusThunkCreator,
     updateUserStatus: updateStatusThunkCreator,
@@ -64,7 +71,8 @@ let dispatchObject = {
 };
 
 export default compose(
-    connect(mapStateToProps, dispatchObject),
+    connect<PrContMapStatePropsType, PrContDispatchPropsType, PrContOwnPropsType, AppStateType>
+    (mapStateToProps, dispatchObject),
     withRouter,
     withAuthRedirect
 )(ProfileContainer)

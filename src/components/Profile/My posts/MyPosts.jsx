@@ -29,7 +29,7 @@ let AddPostForm = (props) => {
 
 AddPostForm = reduxForm({form: "addNewPost"})(AddPostForm);
 
-
+// React.memo - HOC для повышения производ-ти, автоматически сравнивает приходящие пропсы
 const MyPosts = React.memo(props => {
     if (!props.profilePage.profile) {
         return <></>
