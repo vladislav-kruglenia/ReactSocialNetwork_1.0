@@ -7,6 +7,7 @@ import {
     StartStateType,
     ThunkType
 } from "./Types/AuthReducerTypes";
+import {ResultCodeForCaptcha, ResultCodesEnum} from "../api/ApiTypes";
 
 export const SET_USER_DATA = "AUTH_SET_USER_DATA";
 export const SET_CAPTCHA_URL = "SET_CAPTCHA_URL";
@@ -59,7 +60,7 @@ export let setCaptchaUrl = (url: string): SetCaptchaUrlActionType => {
 //thunkCreators
 export let authMeThunkCreator = (): ThunkType => async (dispatch) => {
     let response = await authAPI.me();
-    if (response.resultCode === 0) {
+    if (response.resultCode === ResultCodesEnum.Success) {
         let {id, email, login} = response.data;
         dispatch(setUserData(id, email, login, true))
     }
@@ -68,15 +69,15 @@ export let authMeThunkCreator = (): ThunkType => async (dispatch) => {
 
 export let loginThunkCreator = (login: string, password: string, rememberMe = false, captchaURL = null): ThunkType => {
     return async (dispatch) => {
-        let response = await authAPI.login(login, password, rememberMe, captchaURL);
-        if (response.data.resultCode === 0) {
+        let responseData = await authAPI.login(login, password, rememberMe, captchaURL);
+        if (responseData.resultCode === ResultCodesEnum.Success) {
             dispatch(authMeThunkCreator())
         } else {
-            if (response.data.resultCode === 10) {
+            if (responseData.resultCode === ResultCodeForCaptcha.CaptchaIsRequired) {
                 dispatch(getCaptchaThunkCreator())
             }
 
-            let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error";
+            let message = responseData.messages.length > 0 ? responseData.messages[0] : "Some error";
             // @ts-ignore
             dispatch(stopSubmit("login", {_error: message}))
         }
