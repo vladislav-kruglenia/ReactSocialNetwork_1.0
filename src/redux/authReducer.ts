@@ -67,7 +67,7 @@ export let authMeThunkCreator = (): ThunkType => async (dispatch) => {
 };
 
 
-export let loginThunkCreator = (login: string, password: string, rememberMe = false, captchaURL = null): ThunkType => {
+export let loginThunkCreator = (login: string, password: string, rememberMe:boolean = false, captchaURL:string|null = null): ThunkType => {
     return async (dispatch) => {
         let responseData = await authAPI.login(login, password, rememberMe, captchaURL);
         if (responseData.resultCode === ResultCodesEnum.Success) {

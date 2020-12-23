@@ -1,0 +1,1 @@
+export type FieldValidatorType = (value: string) => string | undefined
