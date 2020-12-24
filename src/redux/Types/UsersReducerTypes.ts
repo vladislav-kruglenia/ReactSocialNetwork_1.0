@@ -1,13 +1,8 @@
 import {PhotosType} from "./ProfileReducerTypes";
 import {
-    CHANGE_FETCHING,
-    FOLLOW,
-    SET_CURRENT_PAGE,
-    SET_TOTAL_USERS_COUNT,
-    SET_USERS,
-    TOGGLE_IS_FOLLOWING_PROGRESS,
-    UNFOLLOW
+    actions
 } from "../usersReducer";
+import {InferActionsTypes} from "../storeRedux";
 
 export type UserType = {
     id: number,
@@ -19,7 +14,7 @@ export type UserType = {
 
 
 
-export type FollowOrUnFollowActionType = {
+/*export type FollowOrUnFollowActionType = {
     type: typeof FOLLOW | typeof UNFOLLOW,
     id: number
 }
@@ -46,12 +41,7 @@ export type ChangeFollowingProgressActionType = {
     type: typeof TOGGLE_IS_FOLLOWING_PROGRESS,
     followingInProgress: boolean,
     userID: number
-}
+}*/
 
-export type UsersActionsTypes = FollowOrUnFollowActionType
-    | SetUsersActionType
-    | SetCurrentPageActionType
-    | SetTotalUsersCountActionType
-    | ChangeFetchingActionType
-    | ChangeFollowingProgressActionType
+export type UsersActionsTypes = InferActionsTypes<typeof actions>
 
