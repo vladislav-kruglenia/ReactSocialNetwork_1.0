@@ -1,15 +1,20 @@
-import profileReducer, {actionCreator} from "./profileReducer";
+import profileReducer, {actionCreator, StartStateProfileType} from "./profileReducer";
+import {ProfileActionsTypes} from "./Types/ProfileReducerTypes";
 
-let startState = {
+
+let startState:StartStateProfileType = {
     posts: [
         {id: 1, message: "This my first post", likeCounts: '26'},
         {id: 2, message: "This my second post", likeCounts: '27'}
     ],
+    profile: null,
+    newPostText: "",
+    status: ""
 };
 
 test('new post should be added', () => {
     //1. test data
-    let action = actionCreator.addPost("89 level");
+    let action:ProfileActionsTypes = actionCreator.addPost({newPost:"89 level", id: 3});
 
     // 2. action
     let newState = profileReducer(startState, action);
@@ -21,7 +26,7 @@ test('new post should be added', () => {
 test('message of new post should be correct', () => {
     //1. test data
 
-    let action = actionCreator.addPost("89 level");
+    let action:ProfileActionsTypes = actionCreator.addPost({newPost:"89 level", id: 3});
 
     // 2. action
     let newState = profileReducer(startState, action);
@@ -35,7 +40,7 @@ test('message of new post should be correct', () => {
 test('delete post should be correct', () => {
     //1. test data
 
-    let action = actionCreator.deletePost(1);
+    let action:ProfileActionsTypes = actionCreator.deletePost(1);
 
     // 2. action
     let newState = profileReducer(startState, action);
@@ -47,7 +52,7 @@ test('delete post should be correct', () => {
 test(`after deleting length shouldn't be decrement if id is incorrect`, () => {
     //1. test data
 
-    let action = actionCreator.deletePost(2005880);
+    let action:ProfileActionsTypes = actionCreator.deletePost(2005880);
 
     // 2. action
     let newState = profileReducer(startState, action);

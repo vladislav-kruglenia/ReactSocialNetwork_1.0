@@ -1,8 +1,6 @@
 import {authMeThunkCreator} from "./authReducer";
-import {AppActionsTypes, InitializedSuccessActionType, StartStateType, ThunkType} from "./Types/AppReducerTypes";
+import {AppActionsTypes, StartStateType, ThunkType} from "./Types/AppReducerTypes";
 
-
-export const INITIALIZED_SUCCESS = "INITIALIZED_SUCCESS";
 
 let startState:StartStateType = {
     initialized: false
@@ -10,7 +8,7 @@ let startState:StartStateType = {
 
 let appReducer = (state:StartStateType = startState, action:AppActionsTypes):StartStateType => {
     switch (action.type) {
-        case INITIALIZED_SUCCESS: {
+        case "INITIALIZED_SUCCESS": {
             return {
                 ...state,
                 initialized: true
@@ -23,22 +21,21 @@ let appReducer = (state:StartStateType = startState, action:AppActionsTypes):Sta
 };
 
 //actionCreators
-export let initializedSuccess = ():InitializedSuccessActionType => {
-    return {
-        type: INITIALIZED_SUCCESS
-    }
+export let actions = {
+    initializedSuccess: () => {return {type: "INITIALIZED_SUCCESS"} as const}
 };
-//actionCreators
+
+
+
 
 //thunkCreators
-// @ts-ignore
 export let initializeApp = ():ThunkType => (dispatch) => {
     let promise = dispatch(authMeThunkCreator());
     // Обычно dispatch выполняется и уничтожается.
     // Но тут он что-то возвращает(в нашем случае промис).
     // Мы собираем все промисы в массив, и когда они все будут выполнены, то кидаем в Redux статут инициализации true
     Promise.all([promise]).then(()=>{
-        dispatch(initializedSuccess())
+        dispatch(actions.initializedSuccess())
     })
 };
 

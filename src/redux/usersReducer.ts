@@ -1,12 +1,10 @@
-import {usersAPI} from "../api/api";
 import {updateObjectInArray} from "../utils/objectHelpers";
 import {
     UsersActionsTypes,
     UserType
 } from "./Types/UsersReducerTypes";
-import {ThunkType} from "./Types/CommonTypes";
-
-
+import {DispatchType, ThunkType} from "./Types/CommonTypes";
+import {usersApi} from "../api/users-api";
 
 
 let startState = {
@@ -60,7 +58,6 @@ let usersReducer = (state = startState, action: UsersActionsTypes): StartStateTy
             return {...state, isFetching: action.isFetching}
         }
         case 'TOGGLE_IS_FOLLOWING_PROGRESS': {
-        debugger
             return {
                 ...state,
                 followingInProgress: action.followingInProgress
@@ -129,7 +126,7 @@ export let actions = {
 export let getUsersThunkCreator = (currentPage: number, pageSize: number): ThunkType => {
     return async (dispatch) => {
         dispatch(actions.changeFetching(true));
-        let response = await usersAPI.getUsers(currentPage, pageSize);
+        let response = await usersApi.getUsers(currentPage, pageSize);
         dispatch(actions.changeFetching(false));
         dispatch(actions.setUsers(response.items));
         dispatch(actions.setTotalUsersCount(response.totalCount))
@@ -139,35 +136,33 @@ export let pageChangeThunkCreator = (pageNumber: number, pageSize: number): Thun
     return async (dispatch) => {
         dispatch(actions.changeFetching(true));
         dispatch(actions.setCurrentPage(pageNumber));
-        let response = await usersAPI.getUsers(pageNumber, pageSize);
+        let response = await usersApi.getUsers(pageNumber, pageSize);
         dispatch(actions.changeFetching(false));
         dispatch(actions.setUsers(response.items))
     }
 };
 
-let followUnfollowFlow = (userID: number,
-                          apiMethod: any,
-                          actionCreator: (userId: number) => UsersActionsTypes
-): ThunkType => {
-    return async (dispatch) => {
-        dispatch(actions.changeFollowingProgress(true, userID));
-        let response = await apiMethod(userID);
-        if (response.resultCode === 0) {
-            dispatch(actionCreator(userID))
-        }
-        dispatch(actions.changeFollowingProgress(false, userID))
+let followUnfollowFlow = async (dispatch: DispatchType,
+                                userID: number,
+                                apiMethod: any,
+                                actionCreator: (userId: number) => UsersActionsTypes) => {
+    dispatch(actions.changeFollowingProgress(true, userID));
+    let response = await apiMethod(userID);
+    if (response.resultCode === 0) {
+        dispatch(actionCreator(userID))
     }
+    dispatch(actions.changeFollowingProgress(false, userID))
 };
 
 export let followUserThunkCreator = (userID: number): ThunkType => {
-    return async () => {
-        await followUnfollowFlow(userID, usersAPI.follow.bind(usersAPI), actions.follow)
+    return async (dispatch) => {
+        await followUnfollowFlow(dispatch,userID, usersApi.follow.bind(usersApi), actions.follow)
     }
 };
 
 export let unFollowUserThunkCreator = (userID: number): ThunkType => {
-    return async () => {
-        await followUnfollowFlow(userID, usersAPI.unFollow.bind(usersAPI), actions.unFollow)
+    return async (dispatch) => {
+        await followUnfollowFlow(dispatch,userID, usersApi.unFollow.bind(usersApi), actions.unFollow)
     }
 };
 //thunkCreators

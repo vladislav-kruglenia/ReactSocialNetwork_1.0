@@ -1,16 +1,12 @@
-import {INITIALIZED_SUCCESS} from "../appReducer";
+import {actions} from "../appReducer";
 import {ThunkAction} from "redux-thunk";
-import {AppStateType} from "../storeRedux";
+import {AppStateType, InferActionsTypes} from "../storeRedux";
 
 
 export type StartStateType = {
     initialized: boolean
 }
 
-export type InitializedSuccessActionType = {
-    type: typeof INITIALIZED_SUCCESS
-}
+export type AppActionsTypes = InferActionsTypes<typeof actions>
 
-export type AppActionsTypes = InitializedSuccessActionType
-
-export type ThunkType = ThunkAction<Promise<true>, AppStateType, unknown, AppActionsTypes>
+export type ThunkType = ThunkAction<unknown, AppStateType, unknown, AppActionsTypes>

@@ -1,4 +1,4 @@
-import {actionCreator} from "../../redux/dialogsReducer";
+import {actionCreators} from "../../redux/dialogsReducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {withAuthRedirect} from "../../HighOrderComponents/widthAuthRedirect";
@@ -14,10 +14,10 @@ let mapStateToProps = (state) => {
 let mapDispatchToProps = (dispatch) => {
     return {
         onMessageChangeCollBack: (newText) => {
-            dispatch(actionCreator.updateNewMessageText(newText))
+            dispatch(actionCreators.updateNewMessageText(newText))
         },
         addMessageCollBack: (text) => {
-            dispatch(actionCreator.addMessage(text))
+            dispatch(actionCreators.addMessage(text))
         },
         resetText: (formName) => dispatch(reset(formName))
     }

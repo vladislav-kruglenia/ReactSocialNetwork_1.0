@@ -1,5 +1,5 @@
 import {UserType} from "../redux/Types/UsersReducerTypes";
-import {ProfileType} from "../redux/Types/ProfileReducerTypes";
+import {PhotosType, ProfileType} from "../redux/Types/ProfileReducerTypes";
 
 
 export enum ResultCodesEnum {
@@ -11,30 +11,26 @@ export enum ResultCodeForCaptcha {
     CaptchaIsRequired = 10
 }
 
-
-export type MeResponceType = {
-    data: {
-        id: number,
-        email: string,
-        login: string
-    },
-    resultCode: ResultCodesEnum,
+type ResponseType<D = {}, RC = ResultCodesEnum> = {
+    data: D,
+    resultCode: RC,
     messages: Array<string>
 }
 
-export type LoginResponceType ={
-    resultCode: ResultCodesEnum | ResultCodeForCaptcha,
-    messages: Array<string>,
-    data: {userId: number}
-}
+export type MeResponseType = ResponseType<{
+    id: number,
+    email: string,
+    login: string
+}>
 
-export type LogoutResponceType ={
-    resultCode: number,
-    messages: Array<string>,
-    data: Object
-}
+export type LoginResponseType = ResponseType<{userId: number}, ResultCodesEnum | ResultCodeForCaptcha>
 
-export type CaptchaUrlResponceType ={
+
+export type LogoutResponseType = ResponseType
+
+
+
+export type CaptchaUrlResponseType = {
     url: string
 }
 
@@ -42,21 +38,20 @@ export type CaptchaUrlResponceType ={
 export type GetUsersResType = {
     items: Array<UserType>,
     totalCount: number,
-    error: string
+    error: string | null
 }
 
-export type FollowResType = {
-    resultCode: number,
-    messages: Array<string>,
-    data: Object
-}
+export type FollowResType = ResponseType
 
 export type GetProfileResType = ProfileType
 
+export type PutStatusResType = ResponseType
 
-export type PutStatusResType = LogoutResponceType
+export type SaveProfileDataResType = ResponseType
 
-export type SaveProfileDataResType = LogoutResponceType
+export type SavePhotoResType = ResponseType<{
+    photos: PhotosType
+}>
 
 
 

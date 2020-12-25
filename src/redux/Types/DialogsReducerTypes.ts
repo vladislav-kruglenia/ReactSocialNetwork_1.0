@@ -1,4 +1,5 @@
-import {ADD_MESSAGE, UPDATE_NEW_MESSAGE_TEXT} from "../dialogsReducer";
+import {actionCreators} from "../dialogsReducer";
+import {InferActionsTypes} from "../storeRedux";
 
 export type DialogType = {
     id: number,
@@ -10,13 +11,15 @@ export type MessageType = {
     message: string
 }
 
-export type UpdateNewMessageTextActionType = {
+export type DialogActionsTypes = InferActionsTypes<typeof actionCreators>
+
+/*export type UpdateNewMessageTextActionType = {
     type: typeof UPDATE_NEW_MESSAGE_TEXT,
     text: string
 }
 export type AddMessageActionType = {
     type: typeof ADD_MESSAGE,
     newMessageText: string
-}
+}*/
 
-export type DialogActionsTypes = UpdateNewMessageTextActionType | AddMessageActionType
+//export type DialogActionsTypes = UpdateNewMessageTextActionType | AddMessageActionType

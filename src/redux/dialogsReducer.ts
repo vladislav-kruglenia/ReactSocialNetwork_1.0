@@ -1,9 +1,7 @@
 import {
-    AddMessageActionType,
     DialogActionsTypes,
     DialogType,
-    MessageType,
-    UpdateNewMessageTextActionType
+    MessageType
 } from "./Types/DialogsReducerTypes";
 
 export const ADD_MESSAGE = "ADD_MESSAGE";
@@ -51,18 +49,18 @@ let dialogsReducer = (state = startState, action: DialogActionsTypes): StartStat
     }
 };
 
-export let actionCreator = {
-    updateNewMessageText(text: string): UpdateNewMessageTextActionType {
+export let actionCreators = {
+    updateNewMessageText: (text: string) => {
         return {
             type: UPDATE_NEW_MESSAGE_TEXT,
             text: text
-        }
+        } as const
     },
-    addMessage(text: string): AddMessageActionType {
+    addMessage: (text: string) => {
         return {
             type: ADD_MESSAGE,
             newMessageText: text
-        }
+        } as const
     }
 };
 

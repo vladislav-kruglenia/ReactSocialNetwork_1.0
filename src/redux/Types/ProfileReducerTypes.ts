@@ -1,6 +1,8 @@
-import {ADD_POST, DELETE_POST, SAVE_PHOTO_SUCCESS, SET_STATUS, SET_USER_PROFILE} from "../profileReducer";
-import {ThunkAction} from "redux-thunk";
-import {AppStateType} from "../storeRedux";
+import {
+    actionCreator
+} from "../profileReducer";
+import {BaseThunkType, InferActionsTypes} from "../storeRedux";
+import {stopSubmit} from "redux-form";
 
 
 export type PostType = {
@@ -38,7 +40,13 @@ export type PostDataType = {
     newPost: string,
     id: number
 }
-export type AddPostActionType = {
+
+export type ProfileActionsTypes = InferActionsTypes<typeof actionCreator>
+
+
+export type ThunkType = BaseThunkType<ProfileActionsTypes | ReturnType<typeof stopSubmit>>
+
+/*export type AddPostActionType = {
     type: typeof ADD_POST,
     postData: PostDataType
 }
@@ -61,19 +69,20 @@ export type SetStatusActionType ={
 export type SavePhotoSuccessActionType = {
     type: typeof SAVE_PHOTO_SUCCESS,
     photos: PhotosType
-}
-
-/*type ErrorType = {
-    _error: string
 }*/
 
+/*
 export type ProfileActionsTypes = SavePhotoSuccessActionType
     | SetStatusActionType
     | SetUserProfileActionType
     | DeletePostActionType
     | AddPostActionType
+*/
 
-export type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ProfileActionsTypes>
+
+/*type ErrorType = {
+    _error: string
+}*/
 
 
 
