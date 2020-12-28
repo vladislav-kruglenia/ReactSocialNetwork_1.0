@@ -6,7 +6,11 @@ const Post:FC<PostPropsType> = (props) =>{
     return(
         <div className={s.postContainer} >
             <div className={s.postTop}>
-                <div><img src={props.photo} alt={""}/></div>
+
+                <div><img
+                    // TODO ts-ignore
+                    // @ts-ignore
+                    src={props.photo} alt={""}/></div>
                 <div>{props.name}</div>
             </div>
             <div className={s.postText}>{props.message}</div>

@@ -7,7 +7,7 @@ import {
 } from "../../redux/profileReducer";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
-import {withAuthRedirect} from "../../HighOrderComponents/widthAuthRedirect";
+import {withAuthRedirect} from "../../HighOrderComponents/widthAuthRedirect/widthAuthRedirect";
 import {compose} from "redux";
 import {
     PrContDispatchPropsType,
@@ -62,15 +62,17 @@ let mapStateToProps = (state:AppStateType):PrContMapStatePropsType => {
         authorizedUserId: state.auth.id,
     }
 };
+
 let dispatchObject:PrContDispatchPropsType = {
     getProfileInfo: getProfileInfoThunkCreator,
     getUserStatus: getStatusThunkCreator,
     updateUserStatus: updateStatusThunkCreator,
     savePhoto: savePhotoThunkCreator,
+    // @ts-ignore
     saveProfileData: saveProfileDataThunkCreator
 };
 
-export default compose(
+export default compose<React.ComponentType>(
     connect<PrContMapStatePropsType, PrContDispatchPropsType, PrContOwnPropsType, AppStateType>
     (mapStateToProps, dispatchObject),
     withRouter,

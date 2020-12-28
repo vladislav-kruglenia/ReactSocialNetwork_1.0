@@ -8,7 +8,7 @@ import {
     followUserThunkCreator,
     unFollowUserThunkCreator
 } from "../../redux/usersReducer";
-import {withAuthRedirect} from "../../HighOrderComponents/widthAuthRedirect";
+import {withAuthRedirect} from "../../HighOrderComponents/widthAuthRedirect/widthAuthRedirect";
 import {compose} from "redux";
 import {
     getCurrentPage,
@@ -70,7 +70,7 @@ let dispatchObject = {
 };
 
 
-export default compose(
+export default compose<React.ComponentType<UsContOwnPropsType>>(
     connect<UsContMapStatePropsType, UsContDispatchPropsType, UsContOwnPropsType, AppStateType>(mapStateToProps, dispatchObject),
     withAuthRedirect
 )(Users)

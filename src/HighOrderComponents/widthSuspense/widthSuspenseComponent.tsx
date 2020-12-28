@@ -1,17 +1,15 @@
 import React, {Suspense} from 'react';
 
 
-const withSuspense = (Component) => {
-    return (props) => {
-        return (
-            <Suspense fallback={<div>Loading...</div>}>
-                <Component {...props}/>
+function withSuspense<WCP>(WrappedComponent: React.ComponentType<WCP>)  {
+    return (props: WCP) => {
+        return <Suspense fallback={<div>Loading...</div>}>
+                <WrappedComponent {...props}/>
             </Suspense>
-        );
     }
-};
+}
 
-export default withSuspense
+export default withSuspense;
 
 /*
 class RedirectComponent extends React.Component{

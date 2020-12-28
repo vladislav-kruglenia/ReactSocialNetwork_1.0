@@ -1,0 +1,1 @@
+export type ContainerPropsTypes<S, D, O> = S & D & O

@@ -16,7 +16,7 @@ export type PrContDispatchPropsType = {
     getUserStatus: (numberID:number) => void,
     updateUserStatus: (status: string) => void,
     savePhoto: (file:any) => void,
-    saveProfileData: (profile:ProfileType) => void
+    saveProfileData: (profile:ProfileType) => Promise<any>
 }
 
 

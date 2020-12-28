@@ -1,7 +1,7 @@
 import {PhotosType} from "../../../redux/Types/ProfileReducerTypes";
 
 export type ProfileImgProps = {
-    photos: PhotosType,
+    photos: PhotosType | null,
     isOwner: boolean,
 
 

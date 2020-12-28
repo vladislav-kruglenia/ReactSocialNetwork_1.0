@@ -6,7 +6,7 @@ import s2 from "../common/Button.module.css";
 import {UserPropsType} from "./UsersTypes";
 
 
-let User:FC<UserPropsType> = ({user, ...props}) => {
+let User: FC<UserPropsType> = ({user, ...props}) => {
     let u = user;
     return (
         <div className={s.userContainer}>

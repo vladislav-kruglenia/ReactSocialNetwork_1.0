@@ -1,5 +1,5 @@
-import withSuspense from "./HighOrderComponents/widthSuspenseComponent";
-import React from 'react';
+import withSuspense from "./HighOrderComponents/widthSuspense/widthSuspenseComponent";
+import React, {FC} from 'react';
 import './App.css';
 import {BrowserRouter, Redirect,/*BrowserRouter*/ Route, Switch, withRouter} from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
@@ -13,15 +13,17 @@ import {connect, Provider} from "react-redux";
 import {compose} from "redux";
 import {initializeApp} from "./redux/appReducer";
 import Preloader from "./components/common/Preloader/Preloader";
-import store from "./redux/storeRedux";
+import store, {AppStateType} from "./redux/storeRedux";
+import {AppPropsTypes, mapDispatchPropsTypes, mapStatePropsTypes, OwnPropsType} from "./AppTypes";
 
 const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"));
 const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"));
-//import ProfileContainer from "./components/Profile/ProfileContainer";
-//import DialogsContainer from "./components/Dialogs/DialogsContainer";
+
+const SuspendedProfile = withSuspense(ProfileContainer);
+const SuspendedDialogs = withSuspense(DialogsContainer);
 
 
-class App extends React.Component {
+class App extends React.Component<AppPropsTypes> {
     componentDidMount() {
         this.props.authMe()
     }
@@ -41,10 +43,10 @@ class App extends React.Component {
                                        render={() => <Redirect to={"/profile"}/>}/>
 
                                 <Route path='/dialogs'
-                                       render={withSuspense(DialogsContainer)}/>
+                                       render={() => <SuspendedDialogs/>}/>
 
                                 <Route path='/profile/:userId?'
-                                       render={withSuspense(ProfileContainer)}/>
+                                       render={() => <SuspendedProfile/>}/>
 
                                 <Route path='/news' render={() => <News/>}/>
 
@@ -66,16 +68,19 @@ class App extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => ({
+let mapStateToProps = (state: AppStateType):mapStatePropsTypes => ({
     initialized: state.app.initialized
 });
 
-export let AppContainer = compose(
+export let AppContainer = compose<React.ComponentType>(
     withRouter,
-    connect(mapStateToProps, {authMe: initializeApp})
+    connect<mapStatePropsTypes,
+        mapDispatchPropsTypes,
+        OwnPropsType,
+        AppStateType>(mapStateToProps, {authMe: initializeApp})
 )(App);
 
-export const SamuraiJSApp = () => {
+export const SamuraiJSApp: FC = () => {
     return (
         <BrowserRouter>
             <Provider store={store}>

@@ -5,9 +5,9 @@ export type ProfileInfoPropsType = {
     status: string,
     isOwner: boolean,
 
-
+    savePhoto: (file: File) => void,
     updateStatus: (status: string) => void,
-    saveProfileData: (formData:ProfileType) => any
+    saveProfileData: (formData:ProfileType) => Promise<any>
 }
 
 export type ProfileDataPropsType = {

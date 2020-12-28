@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {ChangeEvent, FC, useEffect, useState} from 'react';
 import s from './ProfileStatus.module.css'
 import s2 from './../../../common/Button.module.css'
+import {ProfileStatusProps} from "../../Types/ProfileStatusTypes";
 
-const ProfileStatusWidthHooks = (props) => {
+const ProfileStatusWidthHooks: FC<ProfileStatusProps> = (props) => {
     let [editMode, setEditMode] = useState(false);
     let [status, setStatus] = useState(props.status);
 
@@ -18,7 +19,7 @@ const ProfileStatusWidthHooks = (props) => {
         props.updateStatus(status)
     };
 
-    let onStatusChange = (e) => {
+    let onStatusChange = (e:ChangeEvent<HTMLInputElement>) => {
         setStatus(e.currentTarget.value)
     };
 

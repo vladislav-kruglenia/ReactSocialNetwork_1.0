@@ -8,12 +8,15 @@ import s from "./ProfileInfo.module.css"
 import s2 from "../../common/Button.module.css";
 import {ProfileDataPropsType, ProfileInfoPropsType} from "../Types/ProfileInfoTypes";
 import {ProfileType} from "../../../redux/Types/ProfileReducerTypes";
+import {ContactsType} from "../../../redux/Types/ProfileReducerTypes";
 
 const ProfileInfo: FC<ProfileInfoPropsType> = (props) => {
     if (!props.profile) {
         return <Preloader/>
     }
     let [editMode, setEditMode] = useState(false);
+
+    // ToDo: remove Then
     let formDataEdit = (formData: ProfileType) => {
         console.log(formData);
         props.saveProfileData(formData)
@@ -25,10 +28,8 @@ const ProfileInfo: FC<ProfileInfoPropsType> = (props) => {
     return (
         <div className={s.profileInfoContainer}>
             <ProfileImg
-                // @ts-ignore
-                photos={props.profile.photos || null}
+                photos={props.profile.photos}
                 isOwner={props.isOwner}
-                // @ts-ignore
                 savePhoto={props.savePhoto}
             />
             <div className={s.descriptionBlock}>
@@ -40,7 +41,6 @@ const ProfileInfo: FC<ProfileInfoPropsType> = (props) => {
                 />
                 {editMode
                     ? <ProfileDataForm
-                        // @ts-ignore
                         onSubmit={formDataEdit}
                         initialValues={props.profile}
                         profile={props.profile}
@@ -48,10 +48,8 @@ const ProfileInfo: FC<ProfileInfoPropsType> = (props) => {
                             setEditMode(false)
                         }}/>
                     : <ProfileData
-                        // @ts-ignore
                         isOwner={props.isOwner}
                         profile={props.profile}
-                        // @ts-ignore
                         goToEditPage={() => {
                             setEditMode(true)
                         }}
@@ -80,10 +78,13 @@ const ProfileData: FC<ProfileDataPropsType> = (props) => {
             </div>
             <div>
                 <b>My contacts: </b><br/>
-                {Object.keys(props.profile.contacts).map(key => {
-                    // @ts-ignore
-                    return <Contact key={key} contactName={key} contactValue={props.profile.contacts[key]}/>
-                })}
+                {Object.keys(props.profile.contacts)
+                    .map(key => {
+                        return <Contact
+                            key={key}
+                            contactName={key}
+                            contactValue={props.profile.contacts[key as keyof ContactsType]}/>
+                    })}
             </div>
             {props.isOwner && <button onClick={props.goToEditPage} className={s2.buttonStyle}>Edit</button>}
 

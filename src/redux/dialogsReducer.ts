@@ -23,7 +23,7 @@ let startState = {
     newMessage: "Darova"
 };
 
-type StartStateType = typeof startState
+export type StartStateType = typeof startState
 
 let dialogsReducer = (state = startState, action: DialogActionsTypes): StartStateType => {
     switch (action.type) {
