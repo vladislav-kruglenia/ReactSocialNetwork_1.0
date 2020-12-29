@@ -5,6 +5,7 @@ import {
 } from "./Types/UsersReducerTypes";
 import {DispatchType, ThunkType} from "./Types/CommonTypes";
 import {usersApi} from "../api/users-api";
+import {FollowResType} from "../api/ApiTypes";
 
 
 let startState = {
@@ -16,9 +17,9 @@ let startState = {
     followingInProgress: [] as Array<number>
 };
 
-type StartStateType = typeof startState
+export type StartStateType = typeof startState
 
-let usersReducer = (state = startState, action: UsersActionsTypes): StartStateType => {
+export let usersReducer = (state = startState, action: UsersActionsTypes): StartStateType => {
     switch (action.type) {
         case 'FOLLOW': {
             return {
@@ -144,7 +145,7 @@ export let pageChangeThunkCreator = (pageNumber: number, pageSize: number): Thun
 
 let followUnfollowFlow = async (dispatch: DispatchType,
                                 userID: number,
-                                apiMethod: any,
+                                apiMethod: (userID: number) => Promise<FollowResType>,
                                 actionCreator: (userId: number) => UsersActionsTypes) => {
     dispatch(actions.changeFollowingProgress(true, userID));
     let response = await apiMethod(userID);

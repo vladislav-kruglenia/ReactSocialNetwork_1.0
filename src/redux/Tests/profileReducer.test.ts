@@ -1,5 +1,5 @@
-import profileReducer, {actionCreator, StartStateProfileType} from "./profileReducer";
-import {ProfileActionsTypes} from "./Types/ProfileReducerTypes";
+import profileReducer, {actionCreator, StartStateProfileType} from "../profileReducer";
+import {ProfileActionsTypes} from "../Types/ProfileReducerTypes";
 
 
 let startState:StartStateProfileType = {
