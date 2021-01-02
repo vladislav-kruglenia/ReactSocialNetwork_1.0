@@ -1,4 +1,5 @@
-import usersReducer, {actions, StartStateType} from "../usersReducer";
+import usersReducer, {actions} from "../usersReducer";
+import {StartStateType} from "../Types/UsersReducerTypes";
 
 let startState: StartStateType;
 
@@ -44,9 +45,13 @@ beforeEach(() => {
         totalUsersCount: 0,
         currentPage: 1, // номер активной ссылки
         isFetching: false,
-        followingInProgress: []
+        followingInProgress: [],
+        filter: {
+            term: "",
+            friend: null
+        }
     };
-})
+});
 
 test("Follow success(correct action)", () => {
     const newState = usersReducer(startState, actions.follow(13577));

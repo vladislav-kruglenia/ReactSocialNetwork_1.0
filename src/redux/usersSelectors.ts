@@ -1,5 +1,6 @@
 import {createSelector} from "reselect";
 import {AppStateType} from "./storeRedux";
+import {FilterType} from "./Types/UsersReducerTypes";
 
 export let getPageSize = (state:AppStateType) =>{
     return state.usersPage.pageSize
@@ -16,6 +17,10 @@ export let getIsFetching = (state:AppStateType) =>{
 };
 export let getFollowingInProgress = (state:AppStateType) =>{
     return state.usersPage.followingInProgress
+};
+
+export let getFilter = (state:AppStateType):FilterType =>{
+    return state.usersPage.filter
 };
 
 let getUsersSelector = (state:AppStateType) =>{

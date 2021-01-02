@@ -1,9 +1,9 @@
 import React, {FC} from "react";
-import userPhoto from '../../img/User.jpg'
+import userPhoto from '../../../../img/User.jpg'
 import {NavLink} from "react-router-dom";
-import s from "./Users.module.css"
-import s2 from "../common/Button.module.css";
-import {UserPropsType} from "./UsersTypes";
+import s from "../../Users.module.css"
+import s2 from "../../../common/Button.module.css";
+import {UserPropsType} from "../../Types/UserTypes";
 
 
 let User: FC<UserPropsType> = ({user, ...props}) => {

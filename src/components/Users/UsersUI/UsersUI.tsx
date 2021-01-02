@@ -1,12 +1,14 @@
 import React, {FC} from "react";
-import Paginator from "../common/Paginator/Paginator";
-import User from "./User";
-import s from "./Users.module.css"
-import {UsersUIPropsType} from "./UsersTypes";
+import Paginator from "../../common/Paginator/Paginator";
+import User from "./User/User";
+import s from "../Users.module.css"
+import {UsersSearchForm} from "./UsersSearchForm";
+import {UsersUIPropsType} from "../Types/UserUI-Types";
 
 
 let UsersUI: FC<UsersUIPropsType> = ({totalUsersCount, pageSize, currentPage, onPageChanged, ...props}) => {
     return <div>
+        <UsersSearchForm onFilterChanged={props.onFilterChanged}/>
         <div className={s.usersContainer}>
             {
                 props.usersPage.map(u => <User

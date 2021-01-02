@@ -1,6 +1,6 @@
 import {PhotosType} from "./ProfileReducerTypes";
 import {
-    actions
+    actions, startState
 } from "../usersReducer";
 import {InferActionsTypes} from "../storeRedux";
 
@@ -12,6 +12,9 @@ export type UserType = {
     followed: boolean,
     uniqueUrlName: string | null
 }
+
+export type StartStateType = typeof startState
+export type FilterType = typeof startState.filter
 
 
 

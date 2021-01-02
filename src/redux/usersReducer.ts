@@ -1,5 +1,6 @@
 import {updateObjectInArray} from "../utils/objectHelpers";
 import {
+    FilterType, StartStateType,
     UsersActionsTypes,
     UserType
 } from "./Types/UsersReducerTypes";
@@ -8,16 +9,20 @@ import {usersApi} from "../api/users-api";
 import {FollowResType} from "../api/ApiTypes";
 
 
-let startState = {
+export let startState = {
     users: [] as Array<UserType>,
     pageSize: 5, // сколько элементов будет на странице (задается вручную)
     totalUsersCount: 0,
     currentPage: 1, // номер активной ссылки
     isFetching: false,
-    followingInProgress: [] as Array<number>
+    followingInProgress: [] as Array<number>,
+    filter: {
+        term: "",
+        friend: null as null | boolean
+    }
 };
 
-export type StartStateType = typeof startState
+
 
 export let usersReducer = (state = startState, action: UsersActionsTypes): StartStateType => {
     switch (action.type) {
@@ -58,6 +63,9 @@ export let usersReducer = (state = startState, action: UsersActionsTypes): Start
         case 'CHANGE_FETCHING': {
             return {...state, isFetching: action.isFetching}
         }
+        case 'SET_FILTER': {
+            return { ...state, filter: action.payload }
+        }
         case 'TOGGLE_IS_FOLLOWING_PROGRESS': {
             return {
                 ...state,
@@ -74,6 +82,12 @@ export let usersReducer = (state = startState, action: UsersActionsTypes): Start
 
 //actionCreators
 export let actions = {
+    setFilter: (filter: FilterType) => {
+        return {
+            type: 'SET_FILTER',
+            payload: filter
+        } as const
+    },
     follow: (userID: number) => {
         return {
             type: 'FOLLOW',
@@ -124,20 +138,22 @@ export let actions = {
 
 //thunkCreators
 
-export let getUsersThunkCreator = (currentPage: number, pageSize: number): ThunkType => {
+export let getUsersThunkCreator = (currentPage: number, pageSize: number, filter: FilterType): ThunkType => {
     return async (dispatch) => {
         dispatch(actions.changeFetching(true));
-        let response = await usersApi.getUsers(currentPage, pageSize);
+        dispatch(actions.setFilter(filter));
+        dispatch(actions.setCurrentPage(currentPage));
+        let response = await usersApi.getUsers(currentPage, pageSize, filter);
         dispatch(actions.changeFetching(false));
         dispatch(actions.setUsers(response.items));
         dispatch(actions.setTotalUsersCount(response.totalCount))
     }
 };
-export let pageChangeThunkCreator = (pageNumber: number, pageSize: number): ThunkType => {
+export let pageChangeThunkCreator = (pageNumber: number, pageSize: number, filter: FilterType): ThunkType => {
     return async (dispatch) => {
         dispatch(actions.changeFetching(true));
         dispatch(actions.setCurrentPage(pageNumber));
-        let response = await usersApi.getUsers(pageNumber, pageSize);
+        let response = await usersApi.getUsers(pageNumber, pageSize, filter);
         dispatch(actions.changeFetching(false));
         dispatch(actions.setUsers(response.items))
     }
@@ -157,13 +173,13 @@ let followUnfollowFlow = async (dispatch: DispatchType,
 
 export let followUserThunkCreator = (userID: number): ThunkType => {
     return async (dispatch) => {
-        await followUnfollowFlow(dispatch,userID, usersApi.follow.bind(usersApi), actions.follow)
+        await followUnfollowFlow(dispatch, userID, usersApi.follow.bind(usersApi), actions.follow)
     }
 };
 
 export let unFollowUserThunkCreator = (userID: number): ThunkType => {
     return async (dispatch) => {
-        await followUnfollowFlow(dispatch,userID, usersApi.unFollow.bind(usersApi), actions.unFollow)
+        await followUnfollowFlow(dispatch, userID, usersApi.unFollow.bind(usersApi), actions.unFollow)
     }
 };
 //thunkCreators

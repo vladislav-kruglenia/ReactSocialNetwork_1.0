@@ -3,7 +3,6 @@ import s from "./Paginator.module.css"
 import {PaginatorProps} from "./PaginatorTypes";
 
 
-
 let Paginator: React.FC<PaginatorProps> = ({totalItemsCount, pageSize, currentPage, onPageChanged, portionSize = 10}) => {
     let pagesCount = Math.ceil(totalItemsCount / pageSize);
     let pages = [];
@@ -28,13 +27,13 @@ let Paginator: React.FC<PaginatorProps> = ({totalItemsCount, pageSize, currentPa
         <div className={s.paginatorPages}>
             {pages
                 .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
-                .map((p:number) => {
+                .map((p: number) => {
                     return <div key={p}
                                 className={`${currentPage === p && s.selectedPage} ${s.numberPage}`}
 
-                                 onClick={() => {
-                                     onPageChanged(p)
-                                 }}>{p}</div>
+                                onClick={() => {
+                                    onPageChanged(p)
+                                }}>{p}</div>
                 })}
         </div>
         {

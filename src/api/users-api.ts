@@ -1,9 +1,11 @@
 import {FollowResType, GetUsersResType} from "./ApiTypes";
 import {instance} from "./api";
+import {FilterType} from "../redux/Types/UsersReducerTypes";
 
 export let usersApi = {
-    getUsers(currentPage: number, pageSize: number) {
-        return instance.get<GetUsersResType>(`users?page=${currentPage}&count=${pageSize}`)
+    getUsers(currentPage: number, pageSize: number, filter: FilterType) {
+        return instance.get<GetUsersResType>(`users?page=${currentPage}&count=${pageSize}&term=${filter.term}`+
+        (filter.friend === null ? '' : `&friend=${filter.friend}`))
             .then(response => {
                 return response.data
             })
