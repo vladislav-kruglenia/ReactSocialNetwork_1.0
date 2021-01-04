@@ -1,4 +1,9 @@
-import {OnFilterChangedType} from "./UsersContainerTypes";
+import {OnFilterChangedType} from "./UserUI-Types";
+
+
+export type UsersSearchFormPropsType = {
+    onFilterChanged: OnFilterChangedType
+}
 
 export type UsersSearchFormValuesType = {
     term: string,
@@ -6,7 +11,4 @@ export type UsersSearchFormValuesType = {
 }
 export type FormikHelpersOnSubmitType = {
     setSubmitting: (isSubmitting: boolean) => void
-}
-export type UsersSearchFormPropsType = {
-    onFilterChanged: OnFilterChangedType
 }

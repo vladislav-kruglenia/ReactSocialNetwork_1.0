@@ -1,22 +1,70 @@
-import React, {FC} from "react";
+import React, {FC, useEffect} from "react";
 import Paginator from "../../common/Paginator/Paginator";
 import User from "./User/User";
 import s from "../Users.module.css"
 import {UsersSearchForm} from "./UsersSearchForm";
-import {UsersUIPropsType} from "../Types/UserUI-Types";
+import {OnFilterChangedType, UsersUIPropsType} from "../Types/UserUI-Types";
+import {useDispatch, useSelector} from "react-redux";
+import {
+    getCurrentPage,
+    getFilter,
+    getFollowingInProgress,
+    getPageSize,
+    getTotalUsersCount,
+    getUsers
+} from "../../../redux/usersSelectors";
+import {
+    followUserThunkCreator,
+    getUsersThunkCreator,
+    pageChangeThunkCreator,
+    unFollowUserThunkCreator
+} from "../../../redux/usersReducer";
 
 
-let UsersUI: FC<UsersUIPropsType> = ({totalUsersCount, pageSize, currentPage, onPageChanged, ...props}) => {
+export let UsersUI: FC<UsersUIPropsType> = () => {
+    const totalUsersCount = useSelector(getTotalUsersCount);
+    const currentPage = useSelector(getCurrentPage);
+    const pageSize = useSelector(getPageSize);
+    const filter = useSelector(getFilter);
+    const users = useSelector(getUsers);
+    const followingInProgress = useSelector(getFollowingInProgress);
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getUsersThunkCreator(currentPage, pageSize, {
+            term: "",
+            friend: null
+        }))
+    }, []);
+
+    const onPageChanged = (pageNumber: number) => {
+        dispatch(pageChangeThunkCreator(pageNumber, pageSize, filter))
+    };
+
+    const onFilterChanged: OnFilterChangedType = (filter) => {
+        dispatch(getUsersThunkCreator(1, pageSize, filter))
+    };
+
+    const followUser = (userID: number) => {
+        dispatch(followUserThunkCreator(userID))
+    };
+
+    const unFollowUser = (userID: number) => {
+        dispatch(unFollowUserThunkCreator(userID))
+    };
+
+
     return <div>
-        <UsersSearchForm onFilterChanged={props.onFilterChanged}/>
+        <UsersSearchForm onFilterChanged={onFilterChanged}/>
         <div className={s.usersContainer}>
             {
-                props.usersPage.map(u => <User
+                users.map(u => <User
                     key={u.id}
                     user={u}
-                    followingInProgress={props.followingInProgress}
-                    unFollowUser={props.unFollowUser}
-                    followUser={props.followUser}
+                    followingInProgress={followingInProgress}
+                    followUser={followUser}
+                    unFollowUser={unFollowUser}
                 />)
             }
         </div>
@@ -29,4 +77,3 @@ let UsersUI: FC<UsersUIPropsType> = ({totalUsersCount, pageSize, currentPage, on
     </div>
 };
 
-export default UsersUI

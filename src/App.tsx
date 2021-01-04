@@ -6,15 +6,15 @@ import Navbar from "./components/Navbar/Navbar";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import UsersContainer from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import LoginPage from "./components/LoginPage/LoginPage";
 import {connect, Provider} from "react-redux";
 import {compose} from "redux";
 import {initializeApp} from "./redux/appReducer";
 import Preloader from "./components/common/Preloader/Preloader";
 import store, {AppStateType} from "./redux/storeRedux";
 import {AppPropsTypes, mapDispatchPropsTypes, mapStatePropsTypes, OwnPropsType} from "./AppTypes";
+import {UsersPage} from "./components/Users/UsersPage";
+import {LoginPage} from "./components/LoginPage/LoginPage";
 
 const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"));
 const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"));
@@ -54,7 +54,7 @@ class App extends React.Component<AppPropsTypes> {
 
                                 <Route path='/settings' render={() => <Settings/>}/>
 
-                                <Route path='/users' render={() => <UsersContainer pageName={"Самураи"}/>}/>
+                                <Route path='/users' render={() => <UsersPage pageName={"Самураи"}/>}/>
 
                                 <Route path='/login' render={() => <LoginPage/>}/>
 
