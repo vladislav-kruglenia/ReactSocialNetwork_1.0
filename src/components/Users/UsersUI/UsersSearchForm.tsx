@@ -1,7 +1,7 @@
 import React, {FC} from "react";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {
-    FormikHelpersOnSubmitType,
+    FormikHelpersOnSubmitType, FriendType,
     UsersSearchFormPropsType,
     UsersSearchFormValuesType
 } from "../Types/UsersSearchFormTypes";
@@ -12,7 +12,7 @@ const usersSearchFormValidate = (values: UsersSearchFormValuesType) => {
     return errors;
 };
 
-export const UsersSearchForm: FC<UsersSearchFormPropsType> = React.memo((props) => {
+export const UsersSearchForm: FC<UsersSearchFormPropsType> = React.memo(({filter, ...props}) => {
 
     const submit = (values: UsersSearchFormValuesType, {setSubmitting}: FormikHelpersOnSubmitType) => {
         debugger
@@ -28,7 +28,8 @@ export const UsersSearchForm: FC<UsersSearchFormPropsType> = React.memo((props) 
 
     return <>
         <Formik
-            initialValues={{term: '', friend: "null"}}
+            enableReinitialize={true} // возможность переинициализировать данные формы
+            initialValues={{term: filter.term, friend: String(filter.friend) as FriendType}}
             validate={usersSearchFormValidate}
             onSubmit={submit}
         >
