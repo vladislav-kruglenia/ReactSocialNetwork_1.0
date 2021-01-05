@@ -12,7 +12,6 @@ const Profile:FC<ProfilePropsTypes> = (props) => {
                 profile={props.profile}
                 status={props.status}
                 updateStatus={props.updateStatus}
-                // @ts-ignore
                 savePhoto={props.savePhoto}
                 saveProfileData={props.saveProfileData}
             />

@@ -1,7 +1,7 @@
 import withSuspense from "./HighOrderComponents/widthSuspense/widthSuspenseComponent";
 import React, {FC} from 'react';
 import './App.css';
-import {BrowserRouter, Redirect,/*BrowserRouter*/ Route, Switch, withRouter} from "react-router-dom";
+import {BrowserRouter, Redirect, Route, Switch, withRouter} from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
@@ -15,6 +15,8 @@ import store, {AppStateType} from "./redux/storeRedux";
 import {AppPropsTypes, mapDispatchPropsTypes, mapStatePropsTypes, OwnPropsType} from "./AppTypes";
 import {UsersPage} from "./components/Users/UsersPage";
 import {LoginPage} from "./components/LoginPage/LoginPage";
+import {Button} from "@material-ui/core";
+
 
 const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"));
 const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"));
@@ -58,7 +60,12 @@ class App extends React.Component<AppPropsTypes> {
 
                                 <Route path='/login' render={() => <LoginPage/>}/>
 
-                                <Route path='*' render={() => <div>404 NOT FOUND</div>}/>
+                                <Route path='*' render={() => <div>
+                                    404 NOT FOUND
+                                    <Button variant="contained" color="primary">
+                                        Hello
+                                    </Button>
+                                </div>}/>
                             </Switch>
                         </div>
                     </div>
@@ -68,7 +75,7 @@ class App extends React.Component<AppPropsTypes> {
     }
 }
 
-let mapStateToProps = (state: AppStateType):mapStatePropsTypes => ({
+let mapStateToProps = (state: AppStateType): mapStatePropsTypes => ({
     initialized: state.app.initialized
 });
 
